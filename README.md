@@ -36,6 +36,18 @@ npm run dev
 npm run build
 ```
 
+## GitHub Pages
+
+This repo is configured to deploy through GitHub Actions by building the Vite app first and publishing `dist/`.
+
+Important:
+
+- GitHub Pages cannot serve the raw Vite source files directly
+- pushing the repo is enough as long as the Actions workflow succeeds
+- during GitHub Actions builds, the Vite `base` is derived from the repository name automatically
+
+If you build for a different hosting setup later, `vite.config.js` is the place to adjust the deploy base path.
+
 ## Project Structure
 
 ```text
