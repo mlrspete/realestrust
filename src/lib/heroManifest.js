@@ -3,6 +3,12 @@ export const boardSizes = {
   mobile: { width: 900, height: 1360 },
 };
 
+const baseUrl = import.meta.env.BASE_URL || "/";
+
+function assetPath(path) {
+  return `${baseUrl}${path.replace(/^\/+/, "")}`;
+}
+
 export const roles = [
   "base",
   "proof",
@@ -36,32 +42,32 @@ export const palette = {
 
 export const curatedAssets = {
   core: {
-    mapBase: "/hero-curated/core/map-base.png",
-    paperOverlay: "/hero-curated/core/paper-overlay.jpg",
-    vellumOverlay: "/hero-curated/core/vellum-overlay.png",
-    grainOverlay: "/hero-curated/core/grain-overlay.png",
-    cardStock: "/hero-curated/core/card-stock.jpg",
+    mapBase: assetPath("/hero-curated/core/map-base.png"),
+    paperOverlay: assetPath("/hero-curated/core/paper-overlay.jpg"),
+    vellumOverlay: assetPath("/hero-curated/core/vellum-overlay.png"),
+    grainOverlay: assetPath("/hero-curated/core/grain-overlay.png"),
+    cardStock: assetPath("/hero-curated/core/card-stock.jpg"),
   },
   cards: {
-    primary: "/hero-curated/cards/card-primary.webp",
-    secondary: "/hero-curated/cards/card-secondary.webp",
-    detail: "/hero-curated/cards/card-detail.png",
-    alt: "/hero-curated/cards/card-alt.jpg",
+    primary: assetPath("/hero-curated/cards/card-primary.webp"),
+    secondary: assetPath("/hero-curated/cards/card-secondary.webp"),
+    detail: assetPath("/hero-curated/cards/card-detail.png"),
+    alt: assetPath("/hero-curated/cards/card-alt.jpg"),
   },
   board: {
-    noteA: "/hero-curated/board/note-a.png",
-    noteB: "/hero-curated/board/note-b.png",
-    tapeA: "/hero-curated/board/tape-a.png",
-    tapeB: "/hero-curated/board/tape-b.png",
-    binderClip: "/hero-curated/board/binder-clip.png",
-    photoCornerA: "/hero-curated/board/photo-corner-a.svg",
-    photoCornerB: "/hero-curated/board/photo-corner-b.svg",
-    labelTab: "/hero-curated/board/label-tab.svg",
-    shadowMask: "/hero-curated/board/shadow-mask.png",
-    annotationCircle: "/hero-curated/board/annotation-circle.svg",
-    annotationRoute: "/hero-curated/board/annotation-route.svg",
-    annotationArrows: "/hero-curated/board/annotation-arrows.svg",
-    annotationX: "/hero-curated/board/annotation-x.svg",
+    noteA: assetPath("/hero-curated/board/note-a.png"),
+    noteB: assetPath("/hero-curated/board/note-b.png"),
+    tapeA: assetPath("/hero-curated/board/tape-a.png"),
+    tapeB: assetPath("/hero-curated/board/tape-b.png"),
+    binderClip: assetPath("/hero-curated/board/binder-clip.png"),
+    photoCornerA: assetPath("/hero-curated/board/photo-corner-a.svg"),
+    photoCornerB: assetPath("/hero-curated/board/photo-corner-b.svg"),
+    labelTab: assetPath("/hero-curated/board/label-tab.svg"),
+    shadowMask: assetPath("/hero-curated/board/shadow-mask.png"),
+    annotationCircle: assetPath("/hero-curated/board/annotation-circle.svg"),
+    annotationRoute: assetPath("/hero-curated/board/annotation-route.svg"),
+    annotationArrows: assetPath("/hero-curated/board/annotation-arrows.svg"),
+    annotationX: assetPath("/hero-curated/board/annotation-x.svg"),
   },
 };
 
