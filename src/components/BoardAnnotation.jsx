@@ -1,4 +1,4 @@
-function BoardAnnotation({ type }) {
+function BoardAnnotation({ type, variant }) {
   if (type === "route") {
     return (
       <svg
@@ -23,6 +23,32 @@ function BoardAnnotation({ type }) {
     );
   }
 
+  if (type === "flowRoute") {
+    return (
+      <svg
+        className="board-annotation-svg"
+        viewBox="0 0 1280 760"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          data-draw-path="route"
+          data-final-dash="4 22"
+          d="M46 710C164 694 228 620 328 536C438 442 528 444 646 402C750 366 806 292 888 204C970 116 1036 62 1132 34"
+          stroke="currentColor"
+          strokeWidth="12"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeDasharray="4 22"
+        />
+        <circle data-draw-dot="route" cx="46" cy="710" r="12" fill="currentColor" />
+        <circle data-draw-dot="route" cx="646" cy="402" r="11" fill="currentColor" />
+        <circle data-draw-dot="route" cx="812" cy="238" r="10" fill="currentColor" />
+        <circle data-draw-dot="route" cx="1132" cy="34" r="12" fill="currentColor" />
+      </svg>
+    );
+  }
+
   if (type === "circle") {
     return (
       <svg
@@ -39,6 +65,62 @@ function BoardAnnotation({ type }) {
           strokeLinecap="round"
           strokeLinejoin="round"
           opacity="0.95"
+        />
+      </svg>
+    );
+  }
+
+  if (type === "arrow") {
+    if (variant === "drop") {
+      return (
+        <svg
+          className="board-annotation-svg"
+          viewBox="0 0 320 220"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            data-draw-path="arrows"
+            d="M36 42c56 4 96 22 140 58 34 29 61 54 108 88"
+            stroke="currentColor"
+            strokeWidth="12"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            data-draw-path="arrows"
+            d="m238 160 46 30-56 6"
+            stroke="currentColor"
+            strokeWidth="12"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      );
+    }
+
+    return (
+      <svg
+        className="board-annotation-svg"
+        viewBox="0 0 340 180"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          data-draw-path="arrows"
+          d="M28 146c66-14 112-42 162-80 42-32 72-45 118-54"
+          stroke="currentColor"
+          strokeWidth="12"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          data-draw-path="arrows"
+          d="m258 4 50 12-34 38"
+          stroke="currentColor"
+          strokeWidth="12"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     );

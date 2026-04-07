@@ -4,6 +4,10 @@ function toPercent(value, total) {
   return `${(value / total) * 100}%`;
 }
 
+function toPixels(value) {
+  return typeof value === "number" ? `${value}px` : value;
+}
+
 const defaultParallaxDepthByRole = {
   base: 0.12,
   proof: 0.24,
@@ -20,12 +24,27 @@ function createItemStyle(item, boardSize) {
   const style = {
     left: toPercent(item.x, boardSize.width),
     top: toPercent(item.y, boardSize.height),
-    width: toPercent(item.width, boardSize.width),
-    height: toPercent(item.height, boardSize.height),
     opacity: item.opacity ?? 1,
     transform: `rotate(${item.rotation ?? 0}deg)`,
     "--item-radius": item.radius ?? "0px",
   };
+
+  if (item.fitContent) {
+    if (item.minWidth !== undefined) {
+      style.minWidth = toPixels(item.minWidth);
+    }
+
+    if (item.maxWidth !== undefined) {
+      style.maxWidth = toPixels(item.maxWidth);
+    }
+
+    if (item.minHeight !== undefined) {
+      style.minHeight = toPixels(item.minHeight);
+    }
+  } else {
+    style.width = toPercent(item.width, boardSize.width);
+    style.height = toPercent(item.height, boardSize.height);
+  }
 
   if (item.zIndex !== undefined) {
     style.zIndex = item.zIndex;
@@ -106,7 +125,6 @@ function BoardLayer({ band, items, boardSize }) {
               style={style}
               {...itemProps}
             >
-              <img src={item.asset} alt="" aria-hidden="true" draggable="false" />
               <span className="board-label__text">{item.text}</span>
             </div>
           );
@@ -141,28 +159,22 @@ function BoardLayer({ band, items, boardSize }) {
           return (
             <article className={classes} key={item.id} style={style} {...itemProps}>
               <div className="board-surface-strip-copy">
-                <div className="board-surface-strip-copy__main">
+                <div className="board-surface-strip-copy__header">
                   <span className="board-surface-strip-copy__kicker">
                     {item.content?.kicker}
                   </span>
-                  <span className="board-surface-strip-copy__title">
-                    {item.content?.title}
-                  </span>
+                  {item.content?.secondary ? (
+                    <span className="board-surface-strip-copy__secondary">
+                      {item.content.secondary}
+                    </span>
+                  ) : null}
                 </div>
-                <div className="board-surface-strip-copy__meta">
-                  <div className="board-surface-strip-copy__chips">
-                    {item.content?.chips?.map((chip, index) => (
-                      <span className="board-surface-strip-copy__chip-group" key={chip}>
-                        {index > 0 ? (
-                          <span className="board-surface-strip-copy__divider">/</span>
-                        ) : null}
-                        <span className="board-surface-strip-copy__chip">{chip}</span>
-                      </span>
-                    ))}
-                  </div>
-                  <span className="board-surface-strip-copy__footer">
-                    {item.content?.footer}
-                  </span>
+                <div className="board-surface-strip-copy__chips">
+                  {item.content?.chips?.map((chip) => (
+                    <span className="board-surface-strip-copy__chip" key={chip}>
+                      {chip}
+                    </span>
+                  ))}
                 </div>
               </div>
             </article>
@@ -201,23 +213,29 @@ function BoardLayer({ band, items, boardSize }) {
                 <span className="board-file-card-copy__title">
                   {item.content?.title}
                 </span>
-                <div className="board-file-card-copy__rows">
-                  {item.content?.rows?.map((row) => {
-                    const parts = splitSlashRow(row);
+                {item.content?.rows?.length ? (
+                  <div className="board-file-card-copy__rows">
+                    {item.content.rows.map((row) => {
+                      const parts = splitSlashRow(row);
 
-                    return (
-                      <div className="board-file-card-copy__row" key={row}>
-                        <span className="board-file-card-copy__row-lead">
-                          {parts.lead}
-                        </span>
-                        <span className="board-file-card-copy__row-divider">/</span>
-                        <span className="board-file-card-copy__row-trail">
-                          {parts.trail}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
+                      return (
+                        <div className="board-file-card-copy__row" key={row}>
+                          <span className="board-file-card-copy__row-lead">
+                            {parts.lead}
+                          </span>
+                          {parts.trail ? (
+                            <>
+                              <span className="board-file-card-copy__row-divider">/</span>
+                              <span className="board-file-card-copy__row-trail">
+                                {parts.trail}
+                              </span>
+                            </>
+                          ) : null}
+                        </div>
+                      );
+                    })}
+                  </div>
+                ) : null}
               </figcaption>
             </figure>
           );
@@ -246,10 +264,35 @@ function BoardLayer({ band, items, boardSize }) {
               key={item.id}
               style={style}
               data-annotation-type={item.annotationType}
+              data-annotation-variant={item.annotationVariant}
               {...itemProps}
               aria-hidden="true"
             >
-              <BoardAnnotation type={item.annotationType} />
+              <BoardAnnotation
+                type={item.annotationType}
+                variant={item.annotationVariant}
+              />
+            </figure>
+          );
+        }
+
+        if (item.kind === "annotationNote") {
+          return (
+            <figure
+              className={classes}
+              key={item.id}
+              style={style}
+              data-anchor-side={item.anchorSide ?? "left"}
+              data-anchor-target={item.targetId}
+              {...itemProps}
+            >
+              <span className="board-annotation-note__connector" aria-hidden="true">
+                <span className="board-annotation-note__line" />
+                <span className="board-annotation-note__dot" />
+              </span>
+              <figcaption className="board-annotation-note__text">
+                {item.text}
+              </figcaption>
             </figure>
           );
         }

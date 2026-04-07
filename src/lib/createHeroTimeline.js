@@ -131,7 +131,10 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
         const checklist = q('[data-item-kind="checklist"]')[0];
 
         const labels = q('[data-item-kind="label"]');
-        const handwritten = q('[data-item-kind="text"]');
+        const handwritten = [
+          ...q('[data-item-kind="annotationNote"]'),
+          ...q('[data-item-kind="text"]'),
+        ];
 
         const tapePrimary = q(".board-item--tape-primary")[0];
         const tapeSurface = q(".board-item--tape-surface")[0];
@@ -142,15 +145,23 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
         const targetHalo = q(".board-target__halo")[0];
         const targetPulse = q(".board-target__pulse")[0];
 
-        const route = q('[data-annotation-type="route"]')[0];
-        const circle = q('[data-annotation-type="circle"]')[0];
-        const arrows = q('[data-annotation-type="arrows"]')[0];
+        const primaryCirclePaths = gsap.utils.toArray(
+          q('.board-item--annotation-circle-primary [data-draw-path="circle"]'),
+        );
+        const scenicCirclePaths = gsap.utils.toArray(
+          q('.board-item--annotation-circle-focus [data-draw-path="circle"]'),
+        );
+        const allCirclePaths = [...primaryCirclePaths, ...scenicCirclePaths];
+        const routePaths = gsap.utils.toArray(
+          q('.board-item--annotation-route-major [data-draw-path="route"]'),
+        );
+        const routeDots = gsap.utils.toArray(
+          q('.board-item--annotation-route-major [data-draw-dot="route"]'),
+        );
+        const arrowPaths = gsap.utils.toArray(
+          q('.board-item--annotation-arrow [data-draw-path="arrows"]'),
+        );
         const xMark = q(".board-item--annotation-x")[0];
-
-        const routePath = route?.querySelector('[data-draw-path="route"]');
-        const routeDots = route?.querySelectorAll('[data-draw-dot="route"]') ?? [];
-        const circlePaths = circle?.querySelectorAll('[data-draw-path="circle"]') ?? [];
-        const arrowPaths = arrows?.querySelectorAll('[data-draw-path="arrows"]') ?? [];
 
         const supportMapABaseOpacity = getBaseOpacity(supportMapA);
         const supportMapBBaseOpacity = getBaseOpacity(supportMapB);
@@ -166,8 +177,8 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
         const checklistBaseRotation = getBaseRotation(checklist);
 
         if (reduceMotion) {
-          restoreStrokePath(routePath);
-          circlePaths.forEach(restoreStrokePath);
+          routePaths.forEach(restoreStrokePath);
+          allCirclePaths.forEach(restoreStrokePath);
           arrowPaths.forEach(restoreStrokePath);
 
           setIfPresent(atmosphere, { autoAlpha: 1, x: 0, y: 0 });
@@ -290,8 +301,8 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
           return () => {};
         }
 
-        hideStrokePath(routePath);
-        circlePaths.forEach(hideStrokePath);
+        routePaths.forEach(hideStrokePath);
+        allCirclePaths.forEach(hideStrokePath);
         arrowPaths.forEach(hideStrokePath);
 
         setIfPresent(atmosphere, { autoAlpha: 0, x: 0, y: 0 });
@@ -478,13 +489,13 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
           transformOrigin: "50% 50%",
         });
         setIfPresent(targetHalo, {
-          autoAlpha: 0.78,
-          scale: 1,
+          autoAlpha: 0,
+          scale: 0.92,
           transformOrigin: "50% 50%",
         });
         setIfPresent(targetPulse, {
-          autoAlpha: 0.84,
-          scale: 1,
+          autoAlpha: 0,
+          scale: 0.9,
           transformOrigin: "50% 50%",
         });
         setIfPresent(routeDots, {
@@ -680,7 +691,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             rotation: detailBaseRotation,
             duration: 0.18,
           },
-          0.78,
+          0.75,
         );
         addToIfPresent(
           timeline,
@@ -689,9 +700,9 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             autoAlpha: 1,
             y: 0,
             scale: 1,
-            duration: 0.18,
+            duration: 0.16,
           },
-          0.82,
+          0.84,
         );
         addToIfPresent(
           timeline,
@@ -700,9 +711,29 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             autoAlpha: 1,
             y: 0,
             scale: 1,
+            duration: 0.16,
+          },
+          0.85,
+        );
+        addToIfPresent(
+          timeline,
+          targetHalo,
+          {
+            autoAlpha: 0.78,
+            scale: 1,
+            duration: 0.2,
+          },
+          0.86,
+        );
+        addToIfPresent(
+          timeline,
+          targetPulse,
+          {
+            autoAlpha: 1,
+            scale: 1,
             duration: 0.18,
           },
-          0.83,
+          0.87,
         );
 
         addToIfPresent(
@@ -754,7 +785,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             rotation: checklistBaseRotation,
             duration: 0.18,
           },
-          1.04,
+          1.03,
         );
 
         addToIfPresent(
@@ -766,7 +797,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             duration: 0.14,
             stagger: 0.02,
           },
-          1.11,
+          1.1,
         );
         addToIfPresent(
           timeline,
@@ -777,28 +808,40 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             duration: 0.12,
             stagger: 0.03,
           },
-          1.15,
+          1.14,
         );
 
         addToIfPresent(
           timeline,
-          circlePaths,
-          {
-            strokeDashoffset: 0,
-            duration: 0.16,
-            onComplete: () => circlePaths.forEach(restoreStrokePath),
-          },
-          1.24,
-        );
-        addToIfPresent(
-          timeline,
-          routePath,
+          primaryCirclePaths,
           {
             strokeDashoffset: 0,
             duration: 0.18,
-            onComplete: () => restoreStrokePath(routePath),
+            onComplete: () => primaryCirclePaths.forEach(restoreStrokePath),
           },
-          1.35,
+          1.23,
+        );
+        addToIfPresent(
+          timeline,
+          scenicCirclePaths,
+          {
+            strokeDashoffset: 0,
+            duration: 0.16,
+            stagger: 0.03,
+            onComplete: () => scenicCirclePaths.forEach(restoreStrokePath),
+          },
+          1.33,
+        );
+        addToIfPresent(
+          timeline,
+          routePaths,
+          {
+            strokeDashoffset: 0,
+            duration: 0.26,
+            stagger: 0.04,
+            onComplete: () => routePaths.forEach(restoreStrokePath),
+          },
+          1.47,
         );
         addToIfPresent(
           timeline,
@@ -806,21 +849,21 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
           {
             autoAlpha: 1,
             scale: 1,
-            duration: 0.1,
+            duration: 0.12,
             stagger: 0.03,
           },
-          1.46,
+          1.64,
         );
         addToIfPresent(
           timeline,
           arrowPaths,
           {
             strokeDashoffset: 0,
-            duration: 0.14,
+            duration: 0.16,
             stagger: 0.03,
             onComplete: () => arrowPaths.forEach(restoreStrokePath),
           },
-          1.5,
+          1.74,
         );
         addToIfPresent(
           timeline,
@@ -830,50 +873,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             clipPath: "inset(0% 0% 0% 0%)",
             duration: 0.1,
           },
-          1.61,
-        );
-
-        addToIfPresent(
-          timeline,
-          [targetPulse, targetMarker].filter(Boolean),
-          {
-            scale: 1.08,
-            duration: 0.1,
-            ease: "power2.out",
-          },
-          1.7,
-        );
-        addToIfPresent(
-          timeline,
-          targetHalo,
-          {
-            autoAlpha: 0.88,
-            scale: 1.04,
-            duration: 0.1,
-            ease: "power2.out",
-          },
-          1.7,
-        );
-        addToIfPresent(
-          timeline,
-          [targetPulse, targetMarker].filter(Boolean),
-          {
-            scale: 1,
-            duration: 0.12,
-            ease: "power2.inOut",
-          },
-          1.8,
-        );
-        addToIfPresent(
-          timeline,
-          targetHalo,
-          {
-            autoAlpha: 0.78,
-            scale: 1,
-            duration: 0.12,
-            ease: "power2.inOut",
-          },
-          1.8,
+          1.84,
         );
 
         return () => {
