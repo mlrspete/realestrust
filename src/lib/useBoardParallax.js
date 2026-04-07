@@ -37,6 +37,10 @@ export function useBoardParallax({
       return undefined;
     }
 
+    if (typeof window.matchMedia !== "function") {
+      return undefined;
+    }
+
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const compactViewportQuery = window.matchMedia("(max-width: 960px)");
     const finePointerQuery = window.matchMedia("(hover: hover) and (pointer: fine)");

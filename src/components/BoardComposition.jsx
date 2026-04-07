@@ -4,7 +4,7 @@ import ThreeBoardShell, { ThreeTargetMarker } from "./ThreeBoardShell.jsx";
 import heroManifest, { boardSizes } from "../lib/heroManifest.js";
 
 function readMobileState() {
-  if (typeof window === "undefined") {
+  if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
     return false;
   }
 
@@ -15,6 +15,11 @@ function BoardComposition({ motionRef, parallaxRef, boardRef }) {
   const [isMobile, setIsMobile] = useState(readMobileState);
 
   useEffect(() => {
+    if (typeof window.matchMedia !== "function") {
+      setIsMobile(false);
+      return undefined;
+    }
+
     const mediaQuery = window.matchMedia("(max-width: 960px)");
     const sync = (event) => setIsMobile(event.matches);
 

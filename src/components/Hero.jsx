@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import BoardComposition from "./BoardComposition.jsx";
 import CopyBlock from "./CopyBlock.jsx";
 import { createHeroTimeline } from "../lib/createHeroTimeline.js";
@@ -11,14 +11,19 @@ function Hero() {
   const boardRef = useRef(null);
   const [introComplete, setIntroComplete] = useState(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setIntroComplete(false);
 
-    return createHeroTimeline({
-      root: heroRef.current,
-      onSetup: () => setIntroComplete(false),
-      onComplete: () => setIntroComplete(true),
-    });
+    try {
+      return createHeroTimeline({
+        root: heroRef.current,
+        onSetup: () => setIntroComplete(false),
+        onComplete: () => setIntroComplete(true),
+      });
+    } catch {
+      setIntroComplete(true);
+      return undefined;
+    }
   }, []);
 
   useBoardParallax({
