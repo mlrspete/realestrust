@@ -35,6 +35,10 @@ function createItemStyle(item, boardSize) {
     style.mixBlendMode = item.blendMode;
   }
 
+  if (item.color) {
+    style.color = item.color;
+  }
+
   return style;
 }
 
@@ -55,6 +59,28 @@ function renderAsset(item) {
   );
 }
 
+function getItemProps(item, parallaxDepth) {
+  return {
+    "data-item-id": item.id,
+    "data-item-kind": item.kind,
+    "data-item-role": item.role,
+    "data-parallax-depth": parallaxDepth,
+  };
+}
+
+function splitSlashRow(row) {
+  if (typeof row !== "string" || !row.includes(" / ")) {
+    return { lead: row, trail: "" };
+  }
+
+  const [lead, ...rest] = row.split(" / ");
+
+  return {
+    lead,
+    trail: rest.join(" / "),
+  };
+}
+
 function BoardLayer({ band, items, boardSize }) {
   return (
     <div className={`board-layer board-layer--${band}`} data-band={band}>
@@ -62,6 +88,7 @@ function BoardLayer({ band, items, boardSize }) {
         const style = createItemStyle(item, boardSize);
         const parallaxDepth =
           item.parallaxDepth ?? defaultParallaxDepthByRole[item.role] ?? 0.1;
+        const itemProps = getItemProps(item, parallaxDepth);
         const classes = [
           "board-item",
           `board-item--${item.role}`,
@@ -77,13 +104,18 @@ function BoardLayer({ band, items, boardSize }) {
               className={classes}
               key={item.id}
               style={style}
-              data-item-id={item.id}
-              data-item-kind={item.kind}
-              data-item-role={item.role}
-              data-parallax-depth={parallaxDepth}
+              {...itemProps}
             >
               <img src={item.asset} alt="" aria-hidden="true" draggable="false" />
-              <span>{item.text}</span>
+              <span className="board-label__text">{item.text}</span>
+            </div>
+          );
+        }
+
+        if (item.kind === "text") {
+          return (
+            <div className={classes} key={item.id} style={style} {...itemProps}>
+              <span className="board-text__content">{item.text}</span>
             </div>
           );
         }
@@ -94,15 +126,98 @@ function BoardLayer({ band, items, boardSize }) {
               className={classes}
               key={item.id}
               style={style}
-              data-item-id={item.id}
-              data-item-kind={item.kind}
-              data-item-role={item.role}
-              data-parallax-depth={parallaxDepth}
+              {...itemProps}
             >
               {renderAsset(item)}
               <figcaption className="board-note-copy">
                 <span className="board-note-copy__kicker">{item.lines?.[0]}</span>
                 <span className="board-note-copy__body">{item.lines?.[1]}</span>
+              </figcaption>
+            </figure>
+          );
+        }
+
+        if (item.kind === "surfaceStrip") {
+          return (
+            <article className={classes} key={item.id} style={style} {...itemProps}>
+              <div className="board-surface-strip-copy">
+                <div className="board-surface-strip-copy__main">
+                  <span className="board-surface-strip-copy__kicker">
+                    {item.content?.kicker}
+                  </span>
+                  <span className="board-surface-strip-copy__title">
+                    {item.content?.title}
+                  </span>
+                </div>
+                <div className="board-surface-strip-copy__meta">
+                  <div className="board-surface-strip-copy__chips">
+                    {item.content?.chips?.map((chip, index) => (
+                      <span className="board-surface-strip-copy__chip-group" key={chip}>
+                        {index > 0 ? (
+                          <span className="board-surface-strip-copy__divider">/</span>
+                        ) : null}
+                        <span className="board-surface-strip-copy__chip">{chip}</span>
+                      </span>
+                    ))}
+                  </div>
+                  <span className="board-surface-strip-copy__footer">
+                    {item.content?.footer}
+                  </span>
+                </div>
+              </div>
+            </article>
+          );
+        }
+
+        if (item.kind === "checklist") {
+          return (
+            <figure className={classes} key={item.id} style={style} {...itemProps}>
+              {item.asset ? renderAsset(item) : null}
+              <figcaption className="board-checklist-copy">
+                <span className="board-checklist-copy__heading">
+                  {item.content?.heading}
+                </span>
+                <ul className="board-checklist-copy__items">
+                  {item.content?.items?.map((entry) => (
+                    <li className="board-checklist-copy__item" key={entry}>
+                      <span className="board-checklist-copy__tick" aria-hidden="true" />
+                      <span className="board-checklist-copy__text">{entry}</span>
+                    </li>
+                  ))}
+                </ul>
+              </figcaption>
+            </figure>
+          );
+        }
+
+        if (item.kind === "fileCard") {
+          return (
+            <figure className={classes} key={item.id} style={style} {...itemProps}>
+              {item.asset ? renderAsset(item) : null}
+              <figcaption className="board-file-card-copy">
+                <span className="board-file-card-copy__kicker">
+                  {item.content?.kicker}
+                </span>
+                <span className="board-file-card-copy__title">
+                  {item.content?.title}
+                </span>
+                <div className="board-file-card-copy__rows">
+                  {item.content?.rows?.map((row) => {
+                    const parts = splitSlashRow(row);
+
+                    return (
+                      <div className="board-file-card-copy__row" key={row}>
+                        <span className="board-file-card-copy__row-lead">
+                          {parts.lead}
+                        </span>
+                        <span className="board-file-card-copy__row-divider">/</span>
+                        <span className="board-file-card-copy__row-trail">
+                          {parts.trail}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
               </figcaption>
             </figure>
           );
@@ -115,10 +230,7 @@ function BoardLayer({ band, items, boardSize }) {
               key={item.id}
               style={style}
               aria-hidden="true"
-              data-item-id={item.id}
-              data-item-kind={item.kind}
-              data-item-role={item.role}
-              data-parallax-depth={parallaxDepth}
+              {...itemProps}
             >
               <span className="board-target__halo" />
               <span className="board-target__pulse" />
@@ -133,11 +245,8 @@ function BoardLayer({ band, items, boardSize }) {
               className={classes}
               key={item.id}
               style={style}
-              data-item-id={item.id}
-              data-item-kind={item.kind}
-              data-item-role={item.role}
               data-annotation-type={item.annotationType}
-              data-parallax-depth={parallaxDepth}
+              {...itemProps}
               aria-hidden="true"
             >
               <BoardAnnotation type={item.annotationType} />
@@ -150,10 +259,7 @@ function BoardLayer({ band, items, boardSize }) {
             className={classes}
             key={item.id}
             style={style}
-            data-item-id={item.id}
-            data-item-kind={item.kind}
-            data-item-role={item.role}
-            data-parallax-depth={parallaxDepth}
+            {...itemProps}
           >
             {renderAsset(item)}
           </figure>

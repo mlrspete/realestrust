@@ -1,93 +1,109 @@
 # Asset Selection
 
-This audit uses only assets already present in the repo. The original asset-pack folders were left untouched. Curated files were copied into `public/hero-curated/`, and only a few transparent PNG props were lightly trimmed for cleaner placement.
+This document locks the hero board runtime asset set for the current board system milestone.
 
-## Selected
+Runtime is limited to:
+- the existing approved assets already curated into `public/hero-curated/`
+- exactly two newly promoted sourced Rust-native maps from `assets from GPT agent sourcing brief/02_maps_support/`
+
+No other sourced asset is approved for runtime in this pass.
+
+## Locked Runtime Set
 
 ### Core
 
-| Original local file | Curated copy |
-| --- | --- |
-| `asset pack for rr/v4/hero/core/map-base-4k.png` | `public/hero-curated/core/map-base.png` |
-| `asset pack for rr/v4/hero/core/paper-overlay.jpg` | `public/hero-curated/core/paper-overlay.jpg` |
-| `asset pack for rr/v4/hero/core/vellum-overlay.png` | `public/hero-curated/core/vellum-overlay.png` |
-| `asset pack for rr/v4/hero/core/grain-overlay.png` | `public/hero-curated/core/grain-overlay.png` |
-| `asset pack for rr/v4/hero/core/card-stock-cream.jpg` | `public/hero-curated/core/card-stock.jpg` |
+| Source file | Runtime file | Status |
+| --- | --- | --- |
+| `asset pack for rr/v4/hero/core/map-base-4k.png` | `public/hero-curated/core/map-base.png` | Keep. Existing board foundation. |
+| `assets from GPT agent sourcing brief/02_maps_support/6289.png` | `public/hero-curated/core/map-master-rust.png` | Promote. Approved sourced Rust-native master map. |
+| `assets from GPT agent sourcing brief/02_maps_support/9DrvRU8.jpg` | `public/hero-curated/core/map-support-rust.jpg` | Promote. Approved sourced Rust-native support map. |
+| `asset pack for rr/v4/hero/core/paper-overlay.jpg` | `public/hero-curated/core/paper-overlay.jpg` | Keep. Existing approved paper texture. |
+| `asset pack for rr/v4/hero/core/vellum-overlay.png` | `public/hero-curated/core/vellum-overlay.png` | Keep. Existing approved translucent overlay. |
+| `asset pack for rr/v4/hero/core/grain-overlay.png` | `public/hero-curated/core/grain-overlay.png` | Keep. Existing approved grain layer. |
 
-### Rust Cards
+`public/hero-curated/core/card-stock.jpg` is not part of the locked hero board runtime registry for this pass.
 
-| Role | Original local file | Curated copy | Reason |
-| --- | --- | --- | --- |
-| Primary | `asset pack for rr/reviewed assets/rust_23_oilrig.webp` | `public/hero-curated/cards/card-primary.webp` | Strongest cinematic Rust card in the pack. Dark structure, iconic silhouette, premium lighting. |
-| Secondary | `asset pack for rr/reviewed assets/rust_20_swamp.webp` | `public/hero-curated/cards/card-secondary.webp` | Good environmental counterpoint to the oilrig card. Quiet, atmospheric, and still recognizably Rust-native. |
-| Detail inset | `asset pack for rr/reviewed assets/8da7d33caed48ee.png` | `public/hero-curated/cards/card-detail.png` | Best map-led detail card without introducing a literal monitor or HUD frame. |
-| Alt | `asset pack for rr/v4/hero/reviewed assets/rust-monument-alt-review.jpg` | `public/hero-curated/cards/card-alt.jpg` | Darker and more editorial than the brighter alternates, so it supports the campaign-board tone better. |
+### Cards
+
+| Source file | Runtime file | Status |
+| --- | --- | --- |
+| `asset pack for rr/reviewed assets/rust_23_oilrig.webp` | `public/hero-curated/cards/card-primary.webp` | Keep. Primary Rust proof card. |
+| `asset pack for rr/reviewed assets/rust_20_swamp.webp` | `public/hero-curated/cards/card-secondary.webp` | Keep. Secondary Rust support card. |
+| `asset pack for rr/reviewed assets/8da7d33caed48ee.png` | `public/hero-curated/cards/card-detail.png` | Keep. Existing detail inset already covers the board's map-detail role. |
+| `asset pack for rr/v4/hero/reviewed assets/rust-monument-alt-review.jpg` | `public/hero-curated/cards/card-alt.jpg` | Keep. Approved alternate card, retained in runtime set. |
 
 ### Board Elements
 
-| Original local file | Curated copy | Note |
+| Source file | Runtime file | Status |
 | --- | --- | --- |
-| `asset pack for rr/v1/board-elements/loose-leaf-note-01.png` | `public/hero-curated/board/note-a.png` | Trimmed excess transparent canvas only. |
-| `asset pack for rr/v1/board-elements/loose-leaf-note-02.png` | `public/hero-curated/board/note-b.png` | Trimmed excess transparent canvas only. |
-| `asset pack for rr/v1/board-elements/masking-tape-strip-01.png` | `public/hero-curated/board/tape-a.png` | Trimmed excess transparent canvas only. |
-| `asset pack for rr/v1/board-elements/masking-tape-strip-02.png` | `public/hero-curated/board/tape-b.png` | Trimmed excess transparent canvas only. |
-| `asset pack for rr/v1/board-elements/binder-clip-black-01.png` | `public/hero-curated/board/binder-clip.png` | Trimmed excess transparent canvas only. |
-| `asset pack for rr/v1/board-elements/photo-corner-01.svg` | `public/hero-curated/board/photo-corner-a.svg` | Copied unchanged. |
-| `asset pack for rr/v1/board-elements/photo-corner-02.svg` | `public/hero-curated/board/photo-corner-b.svg` | Copied unchanged. |
-| `asset pack for rr/v1/board-elements/label-tab-cream-01.svg` | `public/hero-curated/board/label-tab.svg` | Copied unchanged. |
-| `asset pack for rr/v1/board-elements/card-shadow-mask-01.png` | `public/hero-curated/board/shadow-mask.png` | Copied unchanged. |
-| `asset pack for rr/v1/board-elements/annotation-circle-red.svg` | `public/hero-curated/board/annotation-circle.svg` | Copied unchanged. |
-| `asset pack for rr/v1/board-elements/annotation-route-red.svg` | `public/hero-curated/board/annotation-route.svg` | Copied unchanged. |
-| `asset pack for rr/v1/board-elements/annotation-arrows-red.svg` | `public/hero-curated/board/annotation-arrows.svg` | Copied unchanged. |
-| `asset pack for rr/v1/board-elements/annotation-x-red.svg` | `public/hero-curated/board/annotation-x.svg` | Copied unchanged. |
+| `asset pack for rr/v1/board-elements/loose-leaf-note-01.png` | `public/hero-curated/board/note-a.png` | Keep. |
+| `asset pack for rr/v1/board-elements/loose-leaf-note-02.png` | `public/hero-curated/board/note-b.png` | Keep. |
+| `asset pack for rr/v1/board-elements/masking-tape-strip-01.png` | `public/hero-curated/board/tape-a.png` | Keep. |
+| `asset pack for rr/v1/board-elements/masking-tape-strip-02.png` | `public/hero-curated/board/tape-b.png` | Keep. |
+| `asset pack for rr/v1/board-elements/binder-clip-black-01.png` | `public/hero-curated/board/binder-clip.png` | Keep. |
+| `asset pack for rr/v1/board-elements/photo-corner-01.svg` | `public/hero-curated/board/photo-corner-a.svg` | Keep. |
+| `asset pack for rr/v1/board-elements/photo-corner-02.svg` | `public/hero-curated/board/photo-corner-b.svg` | Keep. |
+| `asset pack for rr/v1/board-elements/label-tab-cream-01.svg` | `public/hero-curated/board/label-tab.svg` | Keep. |
+| `asset pack for rr/v1/board-elements/card-shadow-mask-01.png` | `public/hero-curated/board/shadow-mask.png` | Keep. |
+| `asset pack for rr/v1/board-elements/annotation-circle-red.svg` | `public/hero-curated/board/annotation-circle.svg` | Keep. |
+| `asset pack for rr/v1/board-elements/annotation-route-red.svg` | `public/hero-curated/board/annotation-route.svg` | Keep. |
+| `asset pack for rr/v1/board-elements/annotation-arrows-red.svg` | `public/hero-curated/board/annotation-arrows.svg` | Keep. |
+| `asset pack for rr/v1/board-elements/annotation-x-red.svg` | `public/hero-curated/board/annotation-x.svg` | Keep. |
 
-## Intentionally Rejected
+## Explicit Rejections
 
-### Rust Alternates Rejected for This Scaffold
+### Sourced Review Cards
 
-- `asset pack for rr/reviewed assets/rust_06_gasstation.webp`
-  Too sunlit and open-world bright for the restrained dark campaign-board direction.
-- `asset pack for rr/v4/hero/reviewed assets/rust-industrial-primary-review.jpg`
-  Useful reference, but flatter and hazier than the selected oilrig card.
-- `asset pack for rr/v4/hero/reviewed assets/rust-environment-secondary-review.jpg`
-  Strong image, but the dense foliage reads busier and less editorial than the selected swamp scene.
-- `asset pack for rr/v4/hero/reviewed assets/rust-map-detail-inset-review.jpg`
-  Too literal as a game-screen object because of the UI frame.
-- `asset pack for rr/v4/hero/reviewed assets/rust-close-detail-texture-review.jpg`
-  Moody and tactile, but too tight and dark for the four-card scaffold set.
+Nothing in `assets from GPT agent sourcing brief/03_rust_scene_cards_review/` is approved for runtime.
 
-### Board Props Rejected
+Reasons:
+- the sourcing manifest marks the folder as review-only because exact source recovery and commercial clearance were not completed
+- the locked board already has approved runtime cards, so these files are not needed to fill any runtime role
+- quality is inconsistent inside the folder, so promoting from it would risk introducing weak assets into runtime
 
-- `asset pack for rr/v1/board-elements/sticky-note-yellow-01.png`
-  Too office-like and square compared with the looser paper-note direction.
-- `asset pack for rr/v1/board-elements/sticky-note-cream-01.png`
-  Cleaner than the yellow version, but still reads like a memo pad rather than premium collage stock.
-- `asset pack for rr/v1/board-elements/push-pin-red-01.png`
-  Too literal as a hero anchor and starts pushing the scene toward detective-board prop styling.
-- `asset pack for rr/v1/board-elements/push-pin-black-01.png`
-  Less loud than the red pin, but still too prop-forward for this restrained board.
-- `asset pack for rr/v1/board-elements/paper-clip-steel-01.png`
-  Feels like desk clutter rather than campaign-board editing.
-- `asset pack for rr/v1/board-elements/annotation-bracket-red.svg`
-  Not needed for this milestone's placeholder composition.
-- `asset pack for rr/v2/board-elements/*`
-  Not copied because the v1 set already covers the cleaner board language needed here.
-- `asset pack for rr/v4/hero/board-elements/sticky-note-yellow-01.png`
-  Rejected with the rest of the literal memo props.
-- `asset pack for rr/v4/hero/board-elements/masking-tape-strip-01.png`
-  Later stock-prop pass is less aligned with the cleaner v1/v2 board set.
-- `asset pack for rr/v4/hero/board-elements/masking-tape-strip-02.png`
-  Later stock-prop pass is less aligned with the cleaner v1/v2 board set.
-- `asset pack for rr/v4/hero/board-elements/push-pin-red-01.png`
-  Rejected for the same reason as the v1 red pin.
-- `asset pack for rr/v4/hero/board-elements/push-pin-black-01.png`
-  Rejected for the same reason as the v1 black pin.
+### Archival Map Variants
 
-## OBJ Audit
+The only sourced maps promoted into runtime are:
+- `assets from GPT agent sourcing brief/02_maps_support/6289.png`
+- `assets from GPT agent sourcing brief/02_maps_support/9DrvRU8.jpg`
 
-- `asset pack for rr/rust obj items/target.reactive.obj`
-  Inspected as a possible later accent, but it still reads like a literal game prop and was not copied.
-- `asset pack for rr/rust obj items/wall.frame.garagedoor.obj`
-  Inspected as a possible structural accent, but it is too thin and too contextual to justify the complexity right now.
+The following sourced map groups are explicitly rejected for runtime:
+- `assets from GPT agent sourcing brief/01_maps_master/rr-map-master-island-*`
+  Reason: these read as archival island-chart hero plates rather than the locked Rust-native map treatment.
+- `assets from GPT agent sourcing brief/02_maps_support/rr-map-support-sheet-*`
+  Reason: these are not the selected promoted files, and adding them would expand the runtime set beyond the locked pair.
+- `assets from GPT agent sourcing brief/02_maps_support/rr-map-detail-inset-*`
+  Reason: the board already has `public/hero-curated/cards/card-detail.png` for the detail role, so these would be redundant runtime additions.
+- `assets from GPT agent sourcing brief/02_maps_support/map-base-4k.png`
+  Reason: `public/hero-curated/core/map-base.png` already fills the base-map role in runtime.
 
-No OBJ survived the audit. `public/hero-curated/obj/` remains intentionally empty for this milestone.
+### Sourced Documents, Notes, and Fasteners
+
+Nothing in `assets from GPT agent sourcing brief/04_documents_and_notes/` is approved for runtime.
+
+Reasons:
+- the locked board already has approved note, label, and paper-language assets in `public/hero-curated/board/`
+- the sourced document folder, checklist note, and label-strip assets would widen the runtime set without solving a missing board role
+- this step is not a layout-redesign pass, so no new document stack or checklist prop set is being introduced
+
+Nothing in `assets from GPT agent sourcing brief/05_fasteners_and_overlays/` is approved for runtime.
+
+Reasons:
+- sourced tape, binder clip, paperclip, and pushpin-style replacements are unnecessary because the existing runtime tape and clip assets already cover those roles
+- introducing sourced fasteners would violate the locked boundary and risk mixing asset families unnecessarily
+- sourced overlay alternates are rejected because the runtime overlay stack is already locked to `paper-overlay.jpg`, `vellum-overlay.png`, and `grain-overlay.png`
+
+### Uncleared Review Bucket
+
+Nothing in `assets from GPT agent sourcing brief/99_review_uncleared/` is approved for runtime.
+
+Reason:
+- the folder is explicitly quarantined for rights and provenance review, so no file from it can enter the locked runtime set
+
+## Runtime Summary
+
+Approved sourced promotions in this pass:
+- `public/hero-curated/core/map-master-rust.png`
+- `public/hero-curated/core/map-support-rust.jpg`
+
+Everything else already in the locked runtime set remains the existing curated repo asset inventory listed above.

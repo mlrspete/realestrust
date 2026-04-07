@@ -4,22 +4,65 @@ import { gsap } from "gsap";
 function createMotionConfig(isCompactViewport) {
   return {
     shellAmplitude: {
-      x: isCompactViewport ? 2.2 : 3.2,
-      y: isCompactViewport ? 1.8 : 2.6,
-      rotateX: isCompactViewport ? -0.5 : -0.95,
-      rotateY: isCompactViewport ? 0.7 : 1.05,
+      x: isCompactViewport ? 0.45 : 2.05,
+      y: isCompactViewport ? 0.32 : 1.55,
+      rotateX: isCompactViewport ? -0.12 : -0.42,
+      rotateY: isCompactViewport ? 0.16 : 0.58,
     },
     itemAmplitude: {
-      x: isCompactViewport ? 7 : 9,
-      y: isCompactViewport ? 6 : 7,
+      x: isCompactViewport ? 0.85 : 5.2,
+      y: isCompactViewport ? 0.65 : 4.3,
     },
-    smoothing: isCompactViewport ? 0.06 : 0.075,
-    idle: {
-      x: isCompactViewport ? 1.2 : 1.8,
-      y: isCompactViewport ? -3.2 : -4.8,
-      duration: isCompactViewport ? 6.2 : 5.8,
-    },
+    smoothing: isCompactViewport ? 0.045 : 0.055,
+    idle: isCompactViewport
+      ? {
+          x: 0,
+          y: 0,
+          duration: 0,
+        }
+      : {
+          x: 0.75,
+          y: -1.65,
+          duration: 7.2,
+        },
   };
+}
+
+function getItemDriftMultiplier(kind) {
+  switch (kind) {
+    case "surfaceStrip":
+      return 0.62;
+    case "fileCard":
+      return 0.68;
+    case "checklist":
+      return 0.66;
+    case "label":
+      return 0.78;
+    case "text":
+      return 0.74;
+    case "target":
+      return 0.82;
+    case "annotation":
+      return 0.88;
+    default:
+      return 1;
+  }
+}
+
+function createIdleTween(target, idleConfig) {
+  if (!idleConfig.duration || (!idleConfig.x && !idleConfig.y)) {
+    gsap.set(target, { x: 0, y: 0 });
+    return null;
+  }
+
+  return gsap.to(target, {
+    x: idleConfig.x,
+    y: idleConfig.y,
+    duration: idleConfig.duration,
+    ease: "sine.inOut",
+    repeat: -1,
+    yoyo: true,
+  });
 }
 
 export function useBoardParallax({
@@ -49,10 +92,8 @@ export function useBoardParallax({
       return undefined;
     }
 
-    const isCompactViewport = compactViewportQuery.matches;
-    const hasFinePointer = finePointerQuery.matches;
-    let canTrackPointer = hasFinePointer && !isCompactViewport;
-    let motionConfig = createMotionConfig(isCompactViewport);
+    let motionConfig = createMotionConfig(compactViewportQuery.matches);
+    let canTrackPointer = finePointerQuery.matches && !compactViewportQuery.matches;
     let items = [];
     let itemSetters = [];
 
@@ -67,6 +108,7 @@ export function useBoardParallax({
       items = Array.from(board.querySelectorAll("[data-parallax-depth]"));
       itemSetters = items.map((item) => ({
         depth: Number(item.dataset.parallaxDepth || 0),
+        kind: item.dataset.itemKind || "",
         x: gsap.quickSetter(item, "x", "px"),
         y: gsap.quickSetter(item, "y", "px"),
       }));
@@ -81,33 +123,19 @@ export function useBoardParallax({
       targetY: 0,
     };
 
-    let idleTween = gsap.to(motion, {
-      x: motionConfig.idle.x,
-      y: motionConfig.idle.y,
-      duration: motionConfig.idle.duration,
-      ease: "sine.inOut",
-      repeat: -1,
-      yoyo: true,
-    });
+    let idleTween = createIdleTween(motion, motionConfig.idle);
 
     const syncViewportProfile = () => {
       motionConfig = createMotionConfig(compactViewportQuery.matches);
-      canTrackPointer = hasFinePointer && !compactViewportQuery.matches;
+      canTrackPointer = finePointerQuery.matches && !compactViewportQuery.matches;
 
       if (!canTrackPointer) {
         state.targetX = 0;
         state.targetY = 0;
       }
 
-      idleTween.kill();
-      idleTween = gsap.to(motion, {
-        x: motionConfig.idle.x,
-        y: motionConfig.idle.y,
-        duration: motionConfig.idle.duration,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true,
-      });
+      idleTween?.kill();
+      idleTween = createIdleTween(motion, motionConfig.idle);
     };
 
     const onPointerMove = (event) => {
@@ -132,10 +160,8 @@ export function useBoardParallax({
       state.targetY = 0;
     };
 
-    if (hasFinePointer) {
-      board.addEventListener("pointermove", onPointerMove);
-      board.addEventListener("pointerleave", onPointerLeave);
-    }
+    board.addEventListener("pointermove", onPointerMove);
+    board.addEventListener("pointerleave", onPointerLeave);
 
     let frameId = 0;
 
@@ -149,8 +175,10 @@ export function useBoardParallax({
       shellSetters.rotationX(state.currentY * motionConfig.shellAmplitude.rotateX);
 
       itemSetters.forEach((item) => {
-        item.x(state.currentX * item.depth * motionConfig.itemAmplitude.x);
-        item.y(state.currentY * item.depth * motionConfig.itemAmplitude.y);
+        const driftMultiplier = getItemDriftMultiplier(item.kind);
+
+        item.x(state.currentX * item.depth * motionConfig.itemAmplitude.x * driftMultiplier);
+        item.y(state.currentY * item.depth * motionConfig.itemAmplitude.y * driftMultiplier);
       });
 
       frameId = window.requestAnimationFrame(update);
@@ -164,26 +192,28 @@ export function useBoardParallax({
 
     if (compactViewportQuery.addEventListener) {
       compactViewportQuery.addEventListener("change", syncViewportProfile);
+      finePointerQuery.addEventListener("change", syncViewportProfile);
     } else {
       compactViewportQuery.addListener(syncViewportProfile);
+      finePointerQuery.addListener(syncViewportProfile);
     }
 
     update();
 
     return () => {
       observer?.disconnect();
-      idleTween.kill();
+      idleTween?.kill();
       window.cancelAnimationFrame(frameId);
 
-      if (hasFinePointer) {
-        board.removeEventListener("pointermove", onPointerMove);
-        board.removeEventListener("pointerleave", onPointerLeave);
-      }
+      board.removeEventListener("pointermove", onPointerMove);
+      board.removeEventListener("pointerleave", onPointerLeave);
 
       if (compactViewportQuery.addEventListener) {
         compactViewportQuery.removeEventListener("change", syncViewportProfile);
+        finePointerQuery.removeEventListener("change", syncViewportProfile);
       } else {
         compactViewportQuery.removeListener(syncViewportProfile);
+        finePointerQuery.removeListener(syncViewportProfile);
       }
 
       gsap.set(motion, { clearProps: "x,y" });

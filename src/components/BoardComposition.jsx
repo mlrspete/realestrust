@@ -46,7 +46,7 @@ function BoardComposition({ motionRef, parallaxRef, boardRef }) {
     <section
       className="board-stage"
       id="placements"
-      aria-label="Curated Real Rust campaign board"
+      aria-label="Curated Real Rust campaign file board"
     >
       <div className="board-motion-shell" ref={motionRef}>
         <div className="board-parallax-shell" ref={parallaxRef}>
@@ -57,7 +57,10 @@ function BoardComposition({ motionRef, parallaxRef, boardRef }) {
           >
             <ThreeBoardShell boardSize={boardSize} />
             <div className="board-shell__glow" aria-hidden="true" />
-            <div className="board-composition">
+            <div
+              className="board-composition"
+              data-board-layout={isMobile ? "mobile" : "desktop"}
+            >
               <div className="board-slab" aria-hidden="true" />
               <BoardLayer band="z1" items={layout.layers.z1} boardSize={boardSize} />
               <BoardLayer band="z2" items={layout.layers.z2} boardSize={boardSize} />
