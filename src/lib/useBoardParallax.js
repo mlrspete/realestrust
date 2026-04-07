@@ -4,16 +4,20 @@ import { gsap } from "gsap";
 function createMotionConfig(isCompactViewport) {
   return {
     shellAmplitude: {
-      x: isCompactViewport ? 0.45 : 2.05,
-      y: isCompactViewport ? 0.32 : 1.55,
-      rotateX: isCompactViewport ? -0.12 : -0.42,
-      rotateY: isCompactViewport ? 0.16 : 0.58,
+      x: isCompactViewport ? 0.28 : 1.32,
+      y: isCompactViewport ? 0.2 : 0.96,
+      rotateX: isCompactViewport ? -0.08 : -0.26,
+      rotateY: isCompactViewport ? 0.12 : 0.36,
     },
     itemAmplitude: {
-      x: isCompactViewport ? 0.85 : 5.2,
-      y: isCompactViewport ? 0.65 : 4.3,
+      x: isCompactViewport ? 0.55 : 3.5,
+      y: isCompactViewport ? 0.42 : 2.75,
     },
-    smoothing: isCompactViewport ? 0.045 : 0.055,
+    ambientAmplitude: {
+      x: isCompactViewport ? 0.2 : 2.4,
+      y: isCompactViewport ? 0.16 : 1.7,
+    },
+    smoothing: isCompactViewport ? 0.04 : 0.046,
     idle: isCompactViewport
       ? {
           x: 0,
@@ -21,9 +25,31 @@ function createMotionConfig(isCompactViewport) {
           duration: 0,
         }
       : {
-          x: 0.75,
-          y: -1.65,
-          duration: 7.2,
+          x: 0.32,
+          y: -0.78,
+          duration: 10.4,
+        },
+    ambientIdle: isCompactViewport
+      ? {
+          x: 0,
+          y: 0,
+          duration: 0,
+        }
+      : {
+          x: -0.85,
+          y: 0.55,
+          duration: 16.5,
+        },
+    scaffoldIdle: isCompactViewport
+      ? {
+          x: 0,
+          y: 0,
+          duration: 0,
+        }
+      : {
+          x: 0.22,
+          y: -0.42,
+          duration: 18.5,
         },
   };
 }
@@ -50,6 +76,10 @@ function getItemDriftMultiplier(kind) {
 }
 
 function createIdleTween(target, idleConfig) {
+  if (!target) {
+    return null;
+  }
+
   if (!idleConfig.duration || (!idleConfig.x && !idleConfig.y)) {
     gsap.set(target, { x: 0, y: 0 });
     return null;
@@ -66,17 +96,21 @@ function createIdleTween(target, idleConfig) {
 }
 
 export function useBoardParallax({
+  rootRef,
   boardRef,
   motionRef,
   parallaxRef,
   enabled,
 }) {
   useEffect(() => {
+    const root = rootRef.current;
     const board = boardRef.current;
     const motion = motionRef.current;
     const parallax = parallaxRef.current;
+    const atmosphere = root?.querySelector(".hero-atmosphere");
+    const scaffold = root?.querySelector(".hero-scaffold");
 
-    if (!enabled || !board || !motion || !parallax) {
+    if (!enabled || !root || !board || !motion || !parallax) {
       return undefined;
     }
 
@@ -96,6 +130,8 @@ export function useBoardParallax({
     let canTrackPointer = finePointerQuery.matches && !compactViewportQuery.matches;
     let items = [];
     let itemSetters = [];
+    let ambientItems = [];
+    let ambientSetters = [];
 
     const shellSetters = {
       x: gsap.quickSetter(parallax, "x", "px"),
@@ -112,6 +148,13 @@ export function useBoardParallax({
         x: gsap.quickSetter(item, "x", "px"),
         y: gsap.quickSetter(item, "y", "px"),
       }));
+
+      ambientItems = Array.from(root.querySelectorAll("[data-ambient-depth]"));
+      ambientSetters = ambientItems.map((item) => ({
+        depth: Number(item.dataset.ambientDepth || 0),
+        x: gsap.quickSetter(item, "x", "px"),
+        y: gsap.quickSetter(item, "y", "px"),
+      }));
     };
 
     syncItems();
@@ -124,6 +167,8 @@ export function useBoardParallax({
     };
 
     let idleTween = createIdleTween(motion, motionConfig.idle);
+    let ambientTween = createIdleTween(atmosphere, motionConfig.ambientIdle);
+    let scaffoldTween = createIdleTween(scaffold, motionConfig.scaffoldIdle);
 
     const syncViewportProfile = () => {
       motionConfig = createMotionConfig(compactViewportQuery.matches);
@@ -135,7 +180,11 @@ export function useBoardParallax({
       }
 
       idleTween?.kill();
+      ambientTween?.kill();
+      scaffoldTween?.kill();
       idleTween = createIdleTween(motion, motionConfig.idle);
+      ambientTween = createIdleTween(atmosphere, motionConfig.ambientIdle);
+      scaffoldTween = createIdleTween(scaffold, motionConfig.scaffoldIdle);
     };
 
     const onPointerMove = (event) => {
@@ -181,6 +230,11 @@ export function useBoardParallax({
         item.y(state.currentY * item.depth * motionConfig.itemAmplitude.y * driftMultiplier);
       });
 
+      ambientSetters.forEach((item) => {
+        item.x(state.currentX * item.depth * motionConfig.ambientAmplitude.x);
+        item.y(state.currentY * item.depth * motionConfig.ambientAmplitude.y);
+      });
+
       frameId = window.requestAnimationFrame(update);
     };
 
@@ -203,6 +257,8 @@ export function useBoardParallax({
     return () => {
       observer?.disconnect();
       idleTween?.kill();
+      ambientTween?.kill();
+      scaffoldTween?.kill();
       window.cancelAnimationFrame(frameId);
 
       board.removeEventListener("pointermove", onPointerMove);
@@ -217,8 +273,15 @@ export function useBoardParallax({
       }
 
       gsap.set(motion, { clearProps: "x,y" });
+      if (atmosphere) {
+        gsap.set(atmosphere, { clearProps: "x,y" });
+      }
+      if (scaffold) {
+        gsap.set(scaffold, { clearProps: "x,y" });
+      }
       gsap.set(parallax, { clearProps: "x,y,rotationX,rotationY" });
       items.forEach((item) => gsap.set(item, { clearProps: "x,y" }));
+      ambientItems.forEach((item) => gsap.set(item, { clearProps: "x,y" }));
     };
-  }, [boardRef, motionRef, parallaxRef, enabled]);
+  }, [rootRef, boardRef, motionRef, parallaxRef, enabled]);
 }

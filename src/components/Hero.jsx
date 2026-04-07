@@ -27,6 +27,7 @@ function Hero() {
   }, []);
 
   useBoardParallax({
+    rootRef: heroRef,
     boardRef,
     motionRef: boardMotionRef,
     parallaxRef: boardParallaxRef,
@@ -35,7 +36,28 @@ function Hero() {
 
   return (
     <main className="hero" ref={heroRef}>
-      <div className="hero-backdrop" aria-hidden="true" />
+      <div className="hero-atmosphere" aria-hidden="true">
+        <div
+          className="hero-backdrop hero-backdrop--copy-pocket"
+          data-ambient-depth="0.04"
+        />
+        <div
+          className="hero-backdrop hero-backdrop--field"
+          data-ambient-depth="0.08"
+        />
+        <div
+          className="hero-backdrop hero-backdrop--board-bloom"
+          data-ambient-depth="0.14"
+        />
+        <div
+          className="hero-backdrop hero-backdrop--board-pool"
+          data-ambient-depth="0.1"
+        />
+      </div>
+      <div className="hero-scaffold" aria-hidden="true">
+        <span className="hero-scaffold__rail hero-scaffold__rail--copy" />
+        <span className="hero-scaffold__rail hero-scaffold__rail--board" />
+      </div>
       <div className="hero-grid">
         <CopyBlock />
         <BoardComposition

@@ -96,9 +96,23 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
 
         onSetup?.();
 
-        const backdrop = q(".hero-backdrop")[0];
+        const atmosphere = q(".hero-atmosphere")[0];
+        const fieldBackdrop = q(".hero-backdrop--field")[0];
+        const copyPocket = q(".hero-backdrop--copy-pocket")[0];
+        const boardBloom = q(".hero-backdrop--board-bloom")[0];
+        const boardPool = q(".hero-backdrop--board-pool")[0];
+        const scaffold = q(".hero-scaffold")[0];
+
         const copy = q(".hero-copy")[0];
+        const kicker = q(".hero-kicker")[0];
+        const title = q(".hero-title")[0];
+        const deck = q(".hero-deck")[0];
+        const actions = q(".hero-actions")[0];
+        const primaryAction = q(".hero-action--primary")[0];
+        const secondaryAction = q(".hero-action--secondary")[0];
+
         const boardMotion = q(".board-motion-shell")[0];
+        const boardShell = q(".board-shell")[0];
         const boardGlow = q(".board-shell__glow")[0];
         const boardSlab = q(".board-slab")[0];
         const shellSlab = q(".three-board-shell-wrap--slab")[0];
@@ -156,13 +170,30 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
           circlePaths.forEach(restoreStrokePath);
           arrowPaths.forEach(restoreStrokePath);
 
-          setIfPresent(backdrop, { autoAlpha: 1 });
+          setIfPresent(atmosphere, { autoAlpha: 1, x: 0, y: 0 });
+          setIfPresent(fieldBackdrop, { autoAlpha: 1, x: 0, y: 0, scale: 1 });
+          setIfPresent(copyPocket, { autoAlpha: 1, x: 0, y: 0, scale: 1 });
+          setIfPresent(boardBloom, { autoAlpha: 1, x: 0, y: 0, scale: 1 });
+          setIfPresent(boardPool, { autoAlpha: 1, x: 0, y: 0, scale: 1 });
+          setIfPresent(scaffold, { autoAlpha: 1 });
+
           setIfPresent(copy, { autoAlpha: 1, y: 0 });
+          setIfPresent(kicker, { autoAlpha: 1, y: 0 });
+          setIfPresent(title, { autoAlpha: 1, y: 0 });
+          setIfPresent(deck, { autoAlpha: 1, y: 0 });
+          setIfPresent(actions, { autoAlpha: 1, y: 0 });
+          setIfPresent(primaryAction, { autoAlpha: 1, x: 0, y: 0, scale: 1 });
+          setIfPresent(secondaryAction, { autoAlpha: 1, x: 0, y: 0, scale: 1 });
+
           setIfPresent(boardMotion, {
             autoAlpha: 1,
             y: 0,
             scale: 1,
             transformOrigin: "50% 50%",
+          });
+          setIfPresent(boardShell, {
+            "--shell-sheen-x": 128,
+            "--shell-sheen-opacity": 0,
           });
           setIfPresent(shellSlab, {
             autoAlpha: 1,
@@ -263,18 +294,65 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
         circlePaths.forEach(hideStrokePath);
         arrowPaths.forEach(hideStrokePath);
 
-        setIfPresent(backdrop, { autoAlpha: 0 });
-        setIfPresent(copy, { autoAlpha: 0, y: 18 });
+        setIfPresent(atmosphere, { autoAlpha: 0, x: 0, y: 0 });
+        setIfPresent(fieldBackdrop, {
+          autoAlpha: 0,
+          y: -8,
+        });
+        setIfPresent(copyPocket, {
+          autoAlpha: 0,
+          y: 8,
+          scale: 0.985,
+          transformOrigin: "50% 50%",
+        });
+        setIfPresent(boardBloom, {
+          autoAlpha: 0,
+          y: -10,
+          scale: 0.94,
+          transformOrigin: "50% 50%",
+        });
+        setIfPresent(boardPool, {
+          autoAlpha: 0,
+          y: 18,
+          scale: 0.96,
+          transformOrigin: "50% 50%",
+        });
+        setIfPresent(scaffold, { autoAlpha: 0 });
+
+        setIfPresent(copy, { autoAlpha: 0, y: 14 });
+        setIfPresent(kicker, { autoAlpha: 0, y: 8 });
+        setIfPresent(title, { autoAlpha: 0, y: 14 });
+        setIfPresent(deck, { autoAlpha: 0, y: 12 });
+        setIfPresent(actions, { autoAlpha: 0, y: 10 });
+        setIfPresent(primaryAction, {
+          autoAlpha: 0,
+          x: -6,
+          y: 6,
+          scale: 0.975,
+          transformOrigin: "50% 50%",
+        });
+        setIfPresent(secondaryAction, {
+          autoAlpha: 0,
+          x: 6,
+          y: 6,
+          scale: 0.975,
+          transformOrigin: "50% 50%",
+        });
+
         setIfPresent(boardMotion, {
           autoAlpha: 0,
-          y: isDesktop ? 24 : 18,
+          y: isDesktop ? 22 : 16,
           scale: isDesktop ? 0.985 : 0.99,
           transformOrigin: "50% 50%",
         });
+        setIfPresent(boardShell, {
+          "--shell-sheen-x": -140,
+          "--shell-sheen-opacity": 0,
+        });
         setIfPresent(shellSlab, {
           autoAlpha: 0,
-          y: isDesktop ? 18 : 14,
-          scale: 0.985,
+          y: isDesktop ? 20 : 14,
+          scale: 0.982,
           transformOrigin: "50% 50%",
         });
         setIfPresent(boardSlab, { autoAlpha: 0, y: isDesktop ? 12 : 8 });
@@ -427,27 +505,92 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
           onComplete: () => onComplete?.(),
         });
 
-        addToIfPresent(timeline, backdrop, { autoAlpha: 1, duration: 0.38 }, 0);
-        addToIfPresent(timeline, copy, { autoAlpha: 1, y: 0, duration: 0.42 }, 0.03);
+        addToIfPresent(timeline, atmosphere, { autoAlpha: 1, duration: 0.22 }, 0);
+        addToIfPresent(
+          timeline,
+          fieldBackdrop,
+          { autoAlpha: 1, y: 0, duration: 0.32 },
+          0,
+        );
+        addToIfPresent(
+          timeline,
+          copyPocket,
+          { autoAlpha: 1, y: 0, scale: 1, duration: 0.36 },
+          0.02,
+        );
+        addToIfPresent(
+          timeline,
+          boardBloom,
+          { autoAlpha: 1, y: 0, scale: 1, duration: 0.44 },
+          0.04,
+        );
+        addToIfPresent(
+          timeline,
+          boardPool,
+          { autoAlpha: 1, y: 0, scale: 1, duration: 0.46 },
+          0.06,
+        );
+        addToIfPresent(timeline, scaffold, { autoAlpha: 1, duration: 0.34 }, 0.08);
+
+        addToIfPresent(timeline, copy, { autoAlpha: 1, y: 0, duration: 0.34 }, 0.06);
+        addToIfPresent(timeline, kicker, { autoAlpha: 1, y: 0, duration: 0.24 }, 0.08);
+        addToIfPresent(timeline, title, { autoAlpha: 1, y: 0, duration: 0.34 }, 0.12);
+        addToIfPresent(timeline, deck, { autoAlpha: 1, y: 0, duration: 0.3 }, 0.18);
+        addToIfPresent(timeline, actions, { autoAlpha: 1, y: 0, duration: 0.24 }, 0.26);
+        addToIfPresent(
+          timeline,
+          [primaryAction, secondaryAction].filter(Boolean),
+          {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            scale: 1,
+            duration: 0.22,
+            stagger: 0.04,
+          },
+          0.28,
+        );
 
         addToIfPresent(
           timeline,
           shellSlab,
-          { autoAlpha: 1, y: 0, scale: 1, duration: 0.48 },
-          0.08,
+          { autoAlpha: 1, y: 0, scale: 1, duration: 0.44 },
+          0.18,
         );
-        addToIfPresent(timeline, boardSlab, { autoAlpha: 1, y: 0, duration: 0.42 }, 0.1);
+        addToIfPresent(timeline, boardSlab, { autoAlpha: 1, y: 0, duration: 0.34 }, 0.21);
         addToIfPresent(
           timeline,
           boardGlow,
-          { autoAlpha: 1, scale: 1, duration: 0.54 },
-          0.11,
+          { autoAlpha: 1, scale: 1, duration: 0.48 },
+          0.22,
         );
         addToIfPresent(
           timeline,
           boardMotion,
-          { autoAlpha: 1, y: 0, scale: 1, duration: isDesktop ? 0.46 : 0.4 },
-          0.12,
+          { autoAlpha: 1, y: 0, scale: 1, duration: isDesktop ? 0.42 : 0.38 },
+          0.24,
+        );
+        addToIfPresent(
+          timeline,
+          boardShell,
+          {
+            "--shell-sheen-x": -12,
+            "--shell-sheen-opacity": 0.26,
+            duration: 0.24,
+            ease: "power2.out",
+          },
+          0.62,
+        );
+        addToIfPresent(
+          timeline,
+          boardShell,
+          {
+            "--shell-sheen-x": 128,
+            "--shell-sheen-opacity": 0,
+            duration: 0.38,
+            ease: "power2.inOut",
+          },
+          0.82,
         );
 
         addToIfPresent(
@@ -457,9 +600,9 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             autoAlpha: supportMapABaseOpacity,
             y: 0,
             scale: 1,
-            duration: 0.22,
+            duration: 0.2,
           },
-          0.22,
+          0.34,
         );
         addToIfPresent(
           timeline,
@@ -468,9 +611,9 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             autoAlpha: supportMapBBaseOpacity,
             y: 0,
             scale: 1,
-            duration: 0.24,
+            duration: 0.22,
           },
-          0.25,
+          0.37,
         );
         addToIfPresent(
           timeline,
@@ -480,9 +623,9 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             y: 0,
             scale: 1,
             clipPath: "inset(0% 0% 0% 0%)",
-            duration: isDesktop ? 0.38 : 0.34,
+            duration: isDesktop ? 0.34 : 0.3,
           },
-          0.34,
+          0.42,
         );
 
         addToIfPresent(
@@ -493,15 +636,15 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             x: 0,
             y: 0,
             rotation: primaryBaseRotation,
-            duration: 0.26,
+            duration: 0.24,
           },
-          0.52,
+          0.58,
         );
         addToIfPresent(
           timeline,
           tapePrimary,
           { autoAlpha: 1, x: 0, y: 0, duration: 0.18 },
-          0.57,
+          0.63,
         );
         addToIfPresent(
           timeline,
@@ -513,7 +656,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             rotation: secondaryBaseRotation,
             duration: 0.24,
           },
-          0.62,
+          0.66,
         );
         addToIfPresent(
           timeline,
@@ -525,7 +668,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             rotation: altBaseRotation,
             duration: 0.22,
           },
-          0.68,
+          0.72,
         );
         addToIfPresent(
           timeline,
@@ -535,9 +678,9 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             y: 0,
             scale: 1,
             rotation: detailBaseRotation,
-            duration: 0.2,
+            duration: 0.18,
           },
-          0.74,
+          0.78,
         );
         addToIfPresent(
           timeline,
@@ -548,7 +691,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             scale: 1,
             duration: 0.18,
           },
-          0.79,
+          0.82,
         );
         addToIfPresent(
           timeline,
@@ -559,7 +702,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             scale: 1,
             duration: 0.18,
           },
-          0.8,
+          0.83,
         );
 
         addToIfPresent(
@@ -573,13 +716,13 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             rotation: surfaceStripBaseRotation,
             duration: 0.22,
           },
-          0.86,
+          0.88,
         );
         addToIfPresent(
           timeline,
           tapeSurface,
           { autoAlpha: 1, x: 0, y: 0, duration: 0.16 },
-          0.91,
+          0.92,
         );
         addToIfPresent(
           timeline,
@@ -590,7 +733,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             y: 0,
             scale: 1,
             rotation: fileCardBaseRotation,
-            duration: 0.26,
+            duration: 0.24,
           },
           0.98,
         );
@@ -598,7 +741,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
           timeline,
           clip,
           { autoAlpha: 1, y: 0, scale: 1, duration: 0.16 },
-          1.03,
+          1.01,
         );
         addToIfPresent(
           timeline,
@@ -609,9 +752,9 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             y: 0,
             scale: 1,
             rotation: checklistBaseRotation,
-            duration: 0.2,
+            duration: 0.18,
           },
-          1.06,
+          1.04,
         );
 
         addToIfPresent(
@@ -694,7 +837,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
           timeline,
           [targetPulse, targetMarker].filter(Boolean),
           {
-            scale: 1.12,
+            scale: 1.08,
             duration: 0.1,
             ease: "power2.out",
           },
@@ -704,8 +847,8 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
           timeline,
           targetHalo,
           {
-            autoAlpha: 1,
-            scale: 1.08,
+            autoAlpha: 0.88,
+            scale: 1.04,
             duration: 0.1,
             ease: "power2.out",
           },
