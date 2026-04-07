@@ -1,0 +1,56 @@
+:root {
+  color-scheme: dark;
+  font-family: "Manrope", "Aptos", "Segoe UI", sans-serif;
+  --bg: #0a1015;
+  --bg2: #111922;
+  --text: #f1eadf;
+  --subtext: #b5aca0;
+  --red: #b64038;
+  --red-dark: #8d302b;
+  --paper: #ddd3c2;
+  --line: rgba(255, 255, 255, 0.08);
+  --panel: rgba(17, 25, 34, 0.7);
+  --shadow-soft: 0 22px 56px rgba(0, 0, 0, 0.35);
+  --shadow-deep: 0 40px 120px rgba(0, 0, 0, 0.5);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 78% 22%, rgba(91, 112, 139, 0.1), transparent 0 20%),
+    linear-gradient(180deg, #131c26 0%, #0a1015 54%, #070b0f 100%);
+  color: var(--text);
+  font-family: "Manrope", "Aptos", "Segoe UI", sans-serif;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
