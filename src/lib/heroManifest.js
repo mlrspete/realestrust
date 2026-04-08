@@ -1,3 +1,11 @@
+import {
+  desktopBoardAnimationGroups,
+  desktopBoardAssetSources,
+  desktopBoardAssets,
+  desktopBoardDebugAssets,
+  desktopBoardElements,
+} from "./desktopBoardManifest.js";
+
 export const boardSizes = {
   desktop: { width: 1680, height: 980 },
   mobile: { width: 900, height: 1360 },
@@ -860,14 +868,20 @@ export const boardAnimationGroups = {
   finalNotes: ["notePrimarySite", "noteRouteTraffic"],
 };
 
+export const boardAnimationGroupsByViewport = {
+  desktop: desktopBoardAnimationGroups,
+  mobile: boardAnimationGroups,
+};
+
 function materializeLayout(viewport) {
+  const elementSet = viewport === "desktop" ? desktopBoardElements : boardElements;
   const layers = {
     z1: [],
     z2: [],
     z3: [],
   };
 
-  Object.entries(boardElements).forEach(([id, spec]) => {
+  Object.entries(elementSet).forEach(([id, spec]) => {
     const placement = spec[viewport];
 
     if (!placement) {
@@ -892,10 +906,19 @@ const heroManifest = {
   roles,
   zBands,
   palette,
-  curatedAssets,
+  curatedAssets: {
+    ...curatedAssets,
+    desktopBoard: desktopBoardAssets,
+  },
   lockedAssetSources,
+  desktopBoardAssetSources,
+  debugAssets: desktopBoardDebugAssets,
   boardAnimationGroups,
-  boardElements,
+  boardAnimationGroupsByViewport,
+  boardElements: {
+    desktop: desktopBoardElements,
+    mobile: boardElements,
+  },
   layouts: {
     desktop: materializeLayout("desktop"),
     mobile: materializeLayout("mobile"),

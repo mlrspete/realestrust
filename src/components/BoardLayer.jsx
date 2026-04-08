@@ -163,6 +163,21 @@ function BoardLayer({ band, items, boardSize }) {
           );
         }
 
+        if (item.kind === "mediaCard") {
+          return (
+            <figure className={classes} key={item.id} style={style} {...itemProps}>
+              {renderAsset(item)}
+              {item.content?.label ? (
+                <figcaption className="board-media-card-copy">
+                  <span className="board-media-card-copy__label">
+                    {item.content.label}
+                  </span>
+                </figcaption>
+              ) : null}
+            </figure>
+          );
+        }
+
         if (item.kind === "fileCard") {
           const variantClass = item.content?.variant
             ? `board-file-card-copy--${item.content.variant}`

@@ -135,7 +135,36 @@ function BoardAnnotation({ type, variant }) {
     );
   }
 
+  if (type === "desktopDottedRoute") {
+    return (
+      <svg
+        className="board-annotation-svg"
+        viewBox="0 0 760 602"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          data-draw-path="route"
+          data-final-dash="4 24"
+          d="M74 216C148 190 216 182 278 200C334 216 380 178 434 120C472 80 516 60 566 56C622 52 670 82 698 142C726 198 730 262 710 322C690 384 644 430 574 458C518 482 440 494 340 490C254 488 192 510 154 556"
+          stroke="currentColor"
+          strokeWidth="6.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeDasharray="4 24"
+        />
+        <circle data-draw-dot="route" cx="156" cy="554" r="7" fill="currentColor" />
+        <circle data-draw-dot="route" cx="706" cy="320" r="7" fill="currentColor" />
+        <circle data-draw-dot="route" cx="568" cy="58" r="6.5" fill="currentColor" />
+        <circle data-draw-dot="route" cx="274" cy="202" r="6.5" fill="currentColor" />
+      </svg>
+    );
+  }
+
   if (type === "circle") {
+    const strokeWidth =
+      variant === "primaryOuter" ? 13.5 : variant === "primaryInner" ? 9.5 : 7.5;
+
     return (
       <svg
         className="board-annotation-svg"
@@ -147,7 +176,7 @@ function BoardAnnotation({ type, variant }) {
           data-draw-path="circle"
           d="M73 166c-8-64 35-117 127-125 82-8 146 34 154 109 8 72-47 129-130 135-77 6-142-30-151-119Z"
           stroke="currentColor"
-          strokeWidth="13"
+          strokeWidth={strokeWidth}
           strokeLinecap="round"
           strokeLinejoin="round"
           opacity="0.95"
@@ -157,6 +186,34 @@ function BoardAnnotation({ type, variant }) {
   }
 
   if (type === "arrow") {
+    if (variant === "siteFlow") {
+      return (
+        <svg
+          className="board-annotation-svg"
+          viewBox="0 0 280 160"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            data-draw-path="arrows"
+            d="M24 132c44-10 88-28 130-56 36-24 70-44 110-56"
+            stroke="currentColor"
+            strokeWidth="8.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            data-draw-path="arrows"
+            d="m214 18 48 4-28 38"
+            stroke="currentColor"
+            strokeWidth="8.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      );
+    }
+
     if (variant === "drop") {
       return (
         <svg

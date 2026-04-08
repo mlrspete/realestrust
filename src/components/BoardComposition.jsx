@@ -14,8 +14,28 @@ function readMobileState() {
   return window.matchMedia(boardMediaQuery).matches;
 }
 
+function readBoardOverlayState() {
+  if (!import.meta.env.DEV || typeof window === "undefined") {
+    return false;
+  }
+
+  const searchParams = new URLSearchParams(window.location.search);
+  const queryValue = searchParams.get("boardOverlay");
+
+  if (queryValue !== null) {
+    return queryValue === "1" || queryValue === "true";
+  }
+
+  try {
+    return window.localStorage.getItem("rr-board-overlay") === "1";
+  } catch {
+    return false;
+  }
+}
+
 function BoardComposition({ motionRef, parallaxRef, boardRef }) {
   const [isMobile, setIsMobile] = useState(readMobileState);
+  const [showDebugOverlay] = useState(readBoardOverlayState);
 
   useEffect(() => {
     if (typeof window.matchMedia !== "function") {
@@ -64,6 +84,17 @@ function BoardComposition({ motionRef, parallaxRef, boardRef }) {
               <div className="board-slab" aria-hidden="true" />
               <BoardLayer band="z1" items={layout.layers.z1} boardSize={boardSize} />
               <BoardLayer band="z2" items={layout.layers.z2} boardSize={boardSize} />
+              {!isMobile && showDebugOverlay ? (
+                <div className="board-debug-overlay" aria-hidden="true">
+                  <img
+                    className="board-debug-overlay__image"
+                    src={heroManifest.debugAssets.boardRoughConcept}
+                    alt=""
+                    draggable="false"
+                    decoding="async"
+                  />
+                </div>
+              ) : null}
               <BoardLayer band="z3" items={layout.layers.z3} boardSize={boardSize} />
             </div>
           </div>
