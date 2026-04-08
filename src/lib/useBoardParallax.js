@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { gsap } from "gsap";
+import { boardMediaQuery } from "./heroManifest.js";
 
 function createMotionConfig(isCompactViewport) {
   return {
@@ -56,12 +57,8 @@ function createMotionConfig(isCompactViewport) {
 
 function getItemDriftMultiplier(kind) {
   switch (kind) {
-    case "surfaceStrip":
-      return 0.62;
     case "fileCard":
       return 0.68;
-    case "checklist":
-      return 0.66;
     case "label":
       return 0.78;
     case "text":
@@ -119,7 +116,7 @@ export function useBoardParallax({
     }
 
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const compactViewportQuery = window.matchMedia("(max-width: 960px)");
+    const compactViewportQuery = window.matchMedia(boardMediaQuery);
     const finePointerQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
 
     if (reducedMotionQuery.matches) {

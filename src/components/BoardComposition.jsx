@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import BoardLayer from "./BoardLayer.jsx";
-import ThreeBoardShell, { ThreeTargetMarker } from "./ThreeBoardShell.jsx";
-import heroManifest, { boardSizes } from "../lib/heroManifest.js";
+import ThreeBoardShell from "./ThreeBoardShell.jsx";
+import heroManifest, {
+  boardMediaQuery,
+  boardSizes,
+} from "../lib/heroManifest.js";
 
 function readMobileState() {
   if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
     return false;
   }
 
-  return window.matchMedia("(max-width: 960px)").matches;
+  return window.matchMedia(boardMediaQuery).matches;
 }
 
 function BoardComposition({ motionRef, parallaxRef, boardRef }) {
@@ -20,7 +23,7 @@ function BoardComposition({ motionRef, parallaxRef, boardRef }) {
       return undefined;
     }
 
-    const mediaQuery = window.matchMedia("(max-width: 960px)");
+    const mediaQuery = window.matchMedia(boardMediaQuery);
     const sync = (event) => setIsMobile(event.matches);
 
     setIsMobile(mediaQuery.matches);
@@ -38,9 +41,6 @@ function BoardComposition({ motionRef, parallaxRef, boardRef }) {
     ? heroManifest.layouts.mobile
     : heroManifest.layouts.desktop;
   const boardSize = isMobile ? boardSizes.mobile : boardSizes.desktop;
-  const targetItem =
-    layout.layers.z2.find((item) => item.kind === "target") ??
-    layout.layers.z3.find((item) => item.kind === "target");
 
   return (
     <section
@@ -64,7 +64,6 @@ function BoardComposition({ motionRef, parallaxRef, boardRef }) {
               <div className="board-slab" aria-hidden="true" />
               <BoardLayer band="z1" items={layout.layers.z1} boardSize={boardSize} />
               <BoardLayer band="z2" items={layout.layers.z2} boardSize={boardSize} />
-              <ThreeTargetMarker boardSize={boardSize} targetItem={targetItem} />
               <BoardLayer band="z3" items={layout.layers.z3} boardSize={boardSize} />
             </div>
           </div>

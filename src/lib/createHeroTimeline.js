@@ -1,4 +1,5 @@
 import { gsap } from "gsap";
+import heroManifest, { boardBreakpoints } from "./heroManifest.js";
 
 function hasRenderableTarget(target) {
   if (!target) {
@@ -43,39 +44,12 @@ function getBaseOpacity(target) {
   return Number.isFinite(opacity) ? opacity : 1;
 }
 
-function hideStrokePath(path) {
-  if (!path) {
-    return;
-  }
-
-  const totalLength = path.getTotalLength();
-  const finalDash = path.dataset.finalDash || path.getAttribute("stroke-dasharray") || "";
-
-  path.dataset.drawLength = `${totalLength}`;
-  path.dataset.finalDash = finalDash;
-
-  gsap.set(path, {
-    strokeDasharray: `${totalLength} ${totalLength}`,
-    strokeDashoffset: totalLength,
-  });
+function queryBoardItem(selector, id) {
+  return selector(`[data-item-id="${id}"]`)[0];
 }
 
-function restoreStrokePath(path) {
-  if (!path) {
-    return;
-  }
-
-  const finalDash = path.dataset.finalDash;
-
-  if (finalDash) {
-    gsap.set(path, {
-      strokeDasharray: finalDash,
-      strokeDashoffset: 0,
-    });
-    return;
-  }
-
-  gsap.set(path, { strokeDashoffset: 0 });
+function queryBoardGroup(selector, ids) {
+  return ids.map((id) => queryBoardItem(selector, id)).filter(Boolean);
 }
 
 export function createHeroTimeline({ root, onSetup, onComplete }) {
@@ -87,7 +61,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
   const ctx = gsap.context(() => {
     mm.add(
       {
-        isDesktop: "(min-width: 961px)",
+        isDesktop: `(min-width: ${boardBreakpoints.mobileMax + 1}px)`,
         reduceMotion: "(prefers-reduced-motion: reduce)",
       },
       ({ conditions }) => {
@@ -117,85 +91,140 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
         const boardSlab = q(".board-slab")[0];
         const shellSlab = q(".three-board-shell-wrap--slab")[0];
 
-        const supportMapA = q(".board-item--map-support-a")[0];
-        const supportMapB = q(".board-item--map-support-b")[0];
-        const masterMap = q(".board-item--map-main")[0];
+        const groupIds = heroManifest.boardAnimationGroups;
+        const background = queryBoardGroup(q, groupIds.background);
+        const foundations = queryBoardGroup(q, groupIds.foundations);
+        const brief = queryBoardGroup(q, groupIds.brief);
+        const selectedZone = queryBoardGroup(q, groupIds.selectedZone);
+        const supportPlacement = queryBoardGroup(q, groupIds.supportPlacement);
+        const routeLogic = queryBoardGroup(q, groupIds.routeLogic);
+        const anchorPlacement = queryBoardGroup(q, groupIds.anchorPlacement);
+        const campaignFile = queryBoardGroup(q, groupIds.campaignFile);
+        const finalNotes = queryBoardGroup(q, groupIds.finalNotes);
 
-        const primary = q(".board-item--card-primary")[0];
-        const secondary = q(".board-item--card-secondary")[0];
-        const alt = q(".board-item--card-alt")[0];
-        const detail = q(".board-item--detail-card")[0];
+        const mainMap = queryBoardItem(q, "mainMap");
+        const blueprintRear = queryBoardItem(q, "blueprintRear");
+        const blueprintTape = queryBoardItem(q, "blueprintTape");
+        const clientStudyCard = queryBoardItem(q, "clientStudyCard");
+        const placement03Card = queryBoardItem(q, "placement03Card");
+        const placement02Card = queryBoardItem(q, "placement02Card");
+        const placement01Card = queryBoardItem(q, "placement01Card");
+        const campaignFileCard = queryBoardItem(q, "campaignFileCard");
+        const campaignFileClip = queryBoardItem(q, "campaignFileClip");
+        const routePath = queryBoardItem(q, "routePath");
+        const routeArrows = queryBoardItem(q, "routeArrows");
+        const zonePin = queryBoardItem(q, "zonePin");
 
-        const surfaceStrip = q('[data-item-kind="surfaceStrip"]')[0];
-        const fileCard = q('[data-item-kind="fileCard"]')[0];
-        const checklist = q('[data-item-kind="checklist"]')[0];
+        const mainMapBaseOpacity = getBaseOpacity(mainMap);
+        const blueprintRearBaseOpacity = getBaseOpacity(blueprintRear);
 
-        const labels = q('[data-item-kind="label"]');
-        const handwritten = [
-          ...q('[data-item-kind="annotationNote"]'),
-          ...q('[data-item-kind="text"]'),
-        ];
-
-        const tapePrimary = q(".board-item--tape-primary")[0];
-        const tapeSurface = q(".board-item--tape-surface")[0];
-        const clip = q(".board-item--clip")[0];
-
-        const target = q('[data-item-kind="target"]')[0];
-        const targetMarker = q(".three-board-shell-wrap--marker")[0];
-        const targetHalo = q(".board-target__halo")[0];
-        const targetPulse = q(".board-target__pulse")[0];
-
-        const primaryCirclePaths = gsap.utils.toArray(
-          q('.board-item--annotation-circle-primary [data-draw-path="circle"]'),
-        );
-        const scenicCirclePaths = gsap.utils.toArray(
-          q('.board-item--annotation-circle-focus [data-draw-path="circle"]'),
-        );
-        const allCirclePaths = [...primaryCirclePaths, ...scenicCirclePaths];
-        const routePaths = gsap.utils.toArray(
-          q('.board-item--annotation-route-major [data-draw-path="route"]'),
-        );
-        const routeDots = gsap.utils.toArray(
-          q('.board-item--annotation-route-major [data-draw-dot="route"]'),
-        );
-        const arrowPaths = gsap.utils.toArray(
-          q('.board-item--annotation-arrow [data-draw-path="arrows"]'),
-        );
-        const xMark = q(".board-item--annotation-x")[0];
-
-        const supportMapABaseOpacity = getBaseOpacity(supportMapA);
-        const supportMapBBaseOpacity = getBaseOpacity(supportMapB);
-        const masterMapBaseOpacity = getBaseOpacity(masterMap);
-        const xMarkBaseOpacity = getBaseOpacity(xMark);
-
-        const primaryBaseRotation = getBaseRotation(primary);
-        const secondaryBaseRotation = getBaseRotation(secondary);
-        const altBaseRotation = getBaseRotation(alt);
-        const detailBaseRotation = getBaseRotation(detail);
-        const surfaceStripBaseRotation = getBaseRotation(surfaceStrip);
-        const fileCardBaseRotation = getBaseRotation(fileCard);
-        const checklistBaseRotation = getBaseRotation(checklist);
+        const clientStudyRotation = getBaseRotation(clientStudyCard);
+        const placement03Rotation = getBaseRotation(placement03Card);
+        const placement02Rotation = getBaseRotation(placement02Card);
+        const placement01Rotation = getBaseRotation(placement01Card);
+        const campaignFileRotation = getBaseRotation(campaignFileCard);
+        const campaignClipRotation = getBaseRotation(campaignFileClip);
+        const routePathRotation = getBaseRotation(routePath);
+        const routeArrowsRotation = getBaseRotation(routeArrows);
+        const zonePinRotation = getBaseRotation(zonePin);
 
         if (reduceMotion) {
-          routePaths.forEach(restoreStrokePath);
-          allCirclePaths.forEach(restoreStrokePath);
-          arrowPaths.forEach(restoreStrokePath);
+          [
+            atmosphere,
+            fieldBackdrop,
+            copyPocket,
+            boardBloom,
+            boardPool,
+            scaffold,
+            copy,
+            kicker,
+            title,
+            deck,
+            actions,
+            primaryAction,
+            secondaryAction,
+            boardMotion,
+            boardShell,
+            shellSlab,
+            boardSlab,
+            boardGlow,
+            ...background,
+            ...foundations,
+            ...brief,
+            ...selectedZone,
+            ...supportPlacement,
+            ...routeLogic,
+            ...anchorPlacement,
+            ...campaignFile,
+            ...finalNotes,
+          ].forEach((item) => setIfPresent(item, { autoAlpha: 1 }));
 
-          setIfPresent(atmosphere, { autoAlpha: 1, x: 0, y: 0 });
-          setIfPresent(fieldBackdrop, { autoAlpha: 1, x: 0, y: 0, scale: 1 });
-          setIfPresent(copyPocket, { autoAlpha: 1, x: 0, y: 0, scale: 1 });
-          setIfPresent(boardBloom, { autoAlpha: 1, x: 0, y: 0, scale: 1 });
-          setIfPresent(boardPool, { autoAlpha: 1, x: 0, y: 0, scale: 1 });
-          setIfPresent(scaffold, { autoAlpha: 1 });
-
-          setIfPresent(copy, { autoAlpha: 1, y: 0 });
-          setIfPresent(kicker, { autoAlpha: 1, y: 0 });
-          setIfPresent(title, { autoAlpha: 1, y: 0 });
-          setIfPresent(deck, { autoAlpha: 1, y: 0 });
-          setIfPresent(actions, { autoAlpha: 1, y: 0 });
-          setIfPresent(primaryAction, { autoAlpha: 1, x: 0, y: 0, scale: 1 });
-          setIfPresent(secondaryAction, { autoAlpha: 1, x: 0, y: 0, scale: 1 });
-
+          setIfPresent(mainMap, {
+            autoAlpha: mainMapBaseOpacity,
+            y: 0,
+            scale: 1,
+            clipPath: "inset(0% 0% 0% 0%)",
+          });
+          setIfPresent(blueprintRear, {
+            autoAlpha: blueprintRearBaseOpacity,
+            x: 0,
+            y: 0,
+            scale: 1,
+          });
+          setIfPresent(clientStudyCard, {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            rotation: clientStudyRotation,
+          });
+          setIfPresent(placement03Card, {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            rotation: placement03Rotation,
+          });
+          setIfPresent(placement02Card, {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            rotation: placement02Rotation,
+          });
+          setIfPresent(placement01Card, {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            rotation: placement01Rotation,
+          });
+          setIfPresent(campaignFileCard, {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            rotation: campaignFileRotation,
+          });
+          setIfPresent(campaignFileClip, {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            rotation: campaignClipRotation,
+          });
+          setIfPresent(routePath, {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            rotation: routePathRotation,
+          });
+          setIfPresent(routeArrows, {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            rotation: routeArrowsRotation,
+          });
+          setIfPresent(zonePin, {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            rotation: zonePinRotation,
+          });
           setIfPresent(boardMotion, {
             autoAlpha: 1,
             y: 0,
@@ -206,110 +235,13 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             "--shell-sheen-x": 128,
             "--shell-sheen-opacity": 0,
           });
-          setIfPresent(shellSlab, {
-            autoAlpha: 1,
-            y: 0,
-            scale: 1,
-            transformOrigin: "50% 50%",
-          });
-          setIfPresent(boardSlab, { autoAlpha: 1, y: 0 });
-          setIfPresent(boardGlow, {
-            autoAlpha: 1,
-            scale: 1,
-            transformOrigin: "50% 50%",
-          });
-
-          setIfPresent(supportMapA, { autoAlpha: supportMapABaseOpacity, y: 0, scale: 1 });
-          setIfPresent(supportMapB, { autoAlpha: supportMapBBaseOpacity, y: 0, scale: 1 });
-          setIfPresent(masterMap, {
-            autoAlpha: masterMapBaseOpacity,
-            y: 0,
-            scale: 1,
-            clipPath: "inset(0% 0% 0% 0%)",
-          });
-
-          setIfPresent(primary, {
-            autoAlpha: 1,
-            x: 0,
-            y: 0,
-            rotation: primaryBaseRotation,
-          });
-          setIfPresent(secondary, {
-            autoAlpha: 1,
-            x: 0,
-            y: 0,
-            rotation: secondaryBaseRotation,
-          });
-          setIfPresent(alt, {
-            autoAlpha: 1,
-            x: 0,
-            y: 0,
-            rotation: altBaseRotation,
-          });
-          setIfPresent(detail, {
-            autoAlpha: 1,
-            y: 0,
-            scale: 1,
-            rotation: detailBaseRotation,
-          });
-
-          setIfPresent(surfaceStrip, {
-            autoAlpha: 1,
-            x: 0,
-            y: 0,
-            scale: 1,
-            rotation: surfaceStripBaseRotation,
-          });
-          setIfPresent(fileCard, {
-            autoAlpha: 1,
-            x: 0,
-            y: 0,
-            scale: 1,
-            rotation: fileCardBaseRotation,
-          });
-          setIfPresent(checklist, {
-            autoAlpha: 1,
-            x: 0,
-            y: 0,
-            scale: 1,
-            rotation: checklistBaseRotation,
-          });
-
-          setIfPresent(tapePrimary, { autoAlpha: 1, x: 0, y: 0 });
-          setIfPresent(tapeSurface, { autoAlpha: 1, x: 0, y: 0 });
-          setIfPresent(clip, { autoAlpha: 1, y: 0, scale: 1 });
-
-          setIfPresent(labels, { autoAlpha: 1, y: 0 });
-          setIfPresent(handwritten, { autoAlpha: 1, y: 0 });
-
-          setIfPresent(target, { autoAlpha: 1, y: 0, scale: 1 });
-          setIfPresent(targetMarker, {
-            autoAlpha: 1,
-            y: 0,
-            scale: 1,
-            transformOrigin: "50% 50%",
-          });
-          setIfPresent(targetHalo, { autoAlpha: 1, scale: 1, transformOrigin: "50% 50%" });
-          setIfPresent(targetPulse, { autoAlpha: 1, scale: 1, transformOrigin: "50% 50%" });
-          setIfPresent(routeDots, { autoAlpha: 1, scale: 1, transformOrigin: "50% 50%" });
-          setIfPresent(xMark, {
-            autoAlpha: xMarkBaseOpacity,
-            clipPath: "inset(0% 0% 0% 0%)",
-          });
 
           onComplete?.();
           return () => {};
         }
 
-        routePaths.forEach(hideStrokePath);
-        allCirclePaths.forEach(hideStrokePath);
-        arrowPaths.forEach(hideStrokePath);
-
         setIfPresent(atmosphere, { autoAlpha: 0, x: 0, y: 0 });
-        setIfPresent(fieldBackdrop, {
-          autoAlpha: 0,
-          y: -8,
-        });
+        setIfPresent(fieldBackdrop, { autoAlpha: 0, y: -8 });
         setIfPresent(copyPocket, {
           autoAlpha: 0,
           y: 8,
@@ -373,19 +305,24 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
           transformOrigin: "50% 50%",
         });
 
-        setIfPresent(supportMapA, {
+        setIfPresent(background, {
           autoAlpha: 0,
-          y: isDesktop ? 16 : 12,
-          scale: 1.01,
+        });
+
+        setIfPresent(blueprintRear, {
+          autoAlpha: 0,
+          x: isDesktop ? -18 : -12,
+          y: isDesktop ? 18 : 12,
+          scale: 1.02,
           transformOrigin: "50% 50%",
         });
-        setIfPresent(supportMapB, {
+        setIfPresent(blueprintTape, {
           autoAlpha: 0,
-          y: isDesktop ? 20 : 14,
-          scale: 1.012,
+          x: -10,
+          y: -8,
           transformOrigin: "50% 50%",
         });
-        setIfPresent(masterMap, {
+        setIfPresent(mainMap, {
           autoAlpha: 0,
           y: isDesktop ? 10 : 8,
           scale: 1.015,
@@ -393,119 +330,94 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
           transformOrigin: "50% 50%",
         });
 
-        setIfPresent(primary, {
-          autoAlpha: 0,
-          x: isDesktop ? 34 : 26,
-          y: isDesktop ? -18 : -12,
-          rotation: primaryBaseRotation + 5.5,
-          transformOrigin: "50% 50%",
-        });
-        setIfPresent(secondary, {
-          autoAlpha: 0,
-          x: isDesktop ? -28 : -20,
-          y: isDesktop ? 18 : 14,
-          rotation: secondaryBaseRotation - 5.5,
-          transformOrigin: "50% 50%",
-        });
-        setIfPresent(alt, {
-          autoAlpha: 0,
-          x: isDesktop ? 22 : 16,
-          y: isDesktop ? 10 : 8,
-          rotation: altBaseRotation + 3.4,
-          transformOrigin: "50% 50%",
-        });
-        setIfPresent(detail, {
-          autoAlpha: 0,
-          y: isDesktop ? 18 : 14,
-          scale: 0.94,
-          rotation: detailBaseRotation - 1.1,
-          transformOrigin: "50% 50%",
-        });
-
-        setIfPresent(surfaceStrip, {
+        setIfPresent(clientStudyCard, {
           autoAlpha: 0,
           x: isDesktop ? -26 : -18,
-          y: isDesktop ? 8 : 6,
-          scale: 0.988,
-          rotation: surfaceStripBaseRotation - 0.5,
+          y: isDesktop ? 16 : 12,
+          rotation: clientStudyRotation - 1.4,
           transformOrigin: "50% 50%",
         });
-        setIfPresent(fileCard, {
-          autoAlpha: 0,
-          x: isDesktop ? 20 : 16,
-          y: isDesktop ? 26 : 18,
-          scale: 0.952,
-          rotation: fileCardBaseRotation + 1.2,
-          transformOrigin: "50% 50%",
-        });
-        setIfPresent(checklist, {
-          autoAlpha: 0,
-          y: isDesktop ? 14 : 10,
-          scale: 0.982,
-          rotation: checklistBaseRotation - 0.6,
-          transformOrigin: "50% 50%",
-        });
-
-        setIfPresent(tapePrimary, {
-          autoAlpha: 0,
-          x: 8,
-          y: -8,
-          transformOrigin: "50% 50%",
-        });
-        setIfPresent(tapeSurface, {
-          autoAlpha: 0,
-          x: -8,
-          y: -6,
-          transformOrigin: "50% 50%",
-        });
-        setIfPresent(clip, {
-          autoAlpha: 0,
-          y: 12,
-          scale: 0.96,
-          transformOrigin: "50% 50%",
-        });
-
-        setIfPresent(labels, {
+        setIfPresent(selectedZone, {
           autoAlpha: 0,
           y: 8,
-          transformOrigin: "50% 50%",
-        });
-        setIfPresent(handwritten, {
-          autoAlpha: 0,
-          y: 8,
-          transformOrigin: "50% 50%",
-        });
-
-        setIfPresent(target, {
-          autoAlpha: 0,
-          y: 6,
-          scale: 0.9,
-          transformOrigin: "50% 50%",
-        });
-        setIfPresent(targetMarker, {
-          autoAlpha: 0,
-          y: 8,
-          scale: 0.94,
-          transformOrigin: "50% 50%",
-        });
-        setIfPresent(targetHalo, {
-          autoAlpha: 0,
           scale: 0.92,
           transformOrigin: "50% 50%",
         });
-        setIfPresent(targetPulse, {
+        setIfPresent(zonePin, {
           autoAlpha: 0,
-          scale: 0.9,
+          y: 8,
+          scale: 0.88,
+          rotation: zonePinRotation - 4,
           transformOrigin: "50% 50%",
         });
-        setIfPresent(routeDots, {
+
+        setIfPresent(placement03Card, {
           autoAlpha: 0,
-          scale: 0.36,
+          x: isDesktop ? -24 : -18,
+          y: isDesktop ? 18 : 14,
+          rotation: placement03Rotation - 4.6,
           transformOrigin: "50% 50%",
         });
-        setIfPresent(xMark, {
+        setIfPresent(placement02Card, {
           autoAlpha: 0,
-          clipPath: "inset(0% 100% 0% 0%)",
+          x: isDesktop ? 22 : 16,
+          y: isDesktop ? 10 : 8,
+          rotation: placement02Rotation + 3.2,
+          transformOrigin: "50% 50%",
+        });
+        setIfPresent(placement01Card, {
+          autoAlpha: 0,
+          x: isDesktop ? 34 : 24,
+          y: isDesktop ? -18 : -12,
+          rotation: placement01Rotation + 5.2,
+          transformOrigin: "50% 50%",
+        });
+        setIfPresent(campaignFileCard, {
+          autoAlpha: 0,
+          x: isDesktop ? 20 : 16,
+          y: isDesktop ? 26 : 18,
+          scale: 0.96,
+          rotation: campaignFileRotation + 1.2,
+          transformOrigin: "50% 50%",
+        });
+        setIfPresent(campaignFileClip, {
+          autoAlpha: 0,
+          y: 12,
+          scale: 0.96,
+          rotation: campaignClipRotation + 2,
+          transformOrigin: "50% 50%",
+        });
+
+        setIfPresent(routePath, {
+          autoAlpha: 0,
+          x: isDesktop ? -10 : -8,
+          y: isDesktop ? 10 : 8,
+          rotation: routePathRotation - 1.2,
+          transformOrigin: "50% 50%",
+        });
+        setIfPresent(routeArrows, {
+          autoAlpha: 0,
+          x: 10,
+          y: -6,
+          rotation: routeArrowsRotation + 3,
+          transformOrigin: "50% 50%",
+        });
+        setIfPresent(
+          [
+            ...supportPlacement.filter((item) => item !== placement03Card),
+            ...routeLogic.filter((item) => item !== placement02Card && item !== routePath && item !== routeArrows),
+            ...anchorPlacement.filter((item) => item !== placement01Card),
+          ],
+          {
+            autoAlpha: 0,
+            y: 8,
+            scale: 0.96,
+            transformOrigin: "50% 50%",
+          },
+        );
+        setIfPresent(finalNotes, {
+          autoAlpha: 0,
+          y: 8,
           transformOrigin: "50% 50%",
         });
 
@@ -606,274 +518,218 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
 
         addToIfPresent(
           timeline,
-          supportMapA,
+          background,
           {
-            autoAlpha: supportMapABaseOpacity,
-            y: 0,
-            scale: 1,
-            duration: 0.2,
+            autoAlpha: 1,
+            duration: 0.26,
+            stagger: 0.04,
           },
-          0.34,
+          0.36,
         );
         addToIfPresent(
           timeline,
-          supportMapB,
+          blueprintRear,
           {
-            autoAlpha: supportMapBBaseOpacity,
+            autoAlpha: blueprintRearBaseOpacity,
+            x: 0,
             y: 0,
             scale: 1,
             duration: 0.22,
           },
-          0.37,
+          0.42,
         );
         addToIfPresent(
           timeline,
-          masterMap,
+          blueprintTape,
+          { autoAlpha: 1, x: 0, y: 0, duration: 0.18 },
+          0.46,
+        );
+        addToIfPresent(
+          timeline,
+          mainMap,
           {
-            autoAlpha: masterMapBaseOpacity,
+            autoAlpha: mainMapBaseOpacity,
             y: 0,
             scale: 1,
             clipPath: "inset(0% 0% 0% 0%)",
             duration: isDesktop ? 0.34 : 0.3,
           },
-          0.42,
+          0.5,
         );
 
         addToIfPresent(
           timeline,
-          primary,
+          clientStudyCard,
           {
             autoAlpha: 1,
             x: 0,
             y: 0,
-            rotation: primaryBaseRotation,
-            duration: 0.24,
-          },
-          0.58,
-        );
-        addToIfPresent(
-          timeline,
-          tapePrimary,
-          { autoAlpha: 1, x: 0, y: 0, duration: 0.18 },
-          0.63,
-        );
-        addToIfPresent(
-          timeline,
-          secondary,
-          {
-            autoAlpha: 1,
-            x: 0,
-            y: 0,
-            rotation: secondaryBaseRotation,
-            duration: 0.24,
-          },
-          0.66,
-        );
-        addToIfPresent(
-          timeline,
-          alt,
-          {
-            autoAlpha: 1,
-            x: 0,
-            y: 0,
-            rotation: altBaseRotation,
+            rotation: clientStudyRotation,
             duration: 0.22,
           },
-          0.72,
+          0.76,
         );
+
         addToIfPresent(
           timeline,
-          detail,
+          selectedZone.filter((item) => item !== zonePin),
           {
             autoAlpha: 1,
             y: 0,
             scale: 1,
-            rotation: detailBaseRotation,
             duration: 0.18,
+            stagger: 0.03,
           },
-          0.75,
+          0.96,
         );
         addToIfPresent(
           timeline,
-          target,
+          zonePin,
           {
             autoAlpha: 1,
             y: 0,
             scale: 1,
-            duration: 0.16,
-          },
-          0.84,
-        );
-        addToIfPresent(
-          timeline,
-          targetMarker,
-          {
-            autoAlpha: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.16,
-          },
-          0.85,
-        );
-        addToIfPresent(
-          timeline,
-          targetHalo,
-          {
-            autoAlpha: 0.78,
-            scale: 1,
+            rotation: zonePinRotation,
             duration: 0.2,
           },
-          0.86,
-        );
-        addToIfPresent(
-          timeline,
-          targetPulse,
-          {
-            autoAlpha: 1,
-            scale: 1,
-            duration: 0.18,
-          },
-          0.87,
+          1.02,
         );
 
         addToIfPresent(
           timeline,
-          surfaceStrip,
+          placement03Card,
           {
             autoAlpha: 1,
             x: 0,
             y: 0,
-            scale: 1,
-            rotation: surfaceStripBaseRotation,
+            rotation: placement03Rotation,
             duration: 0.22,
           },
-          0.88,
+          1.14,
         );
         addToIfPresent(
           timeline,
-          tapeSurface,
-          { autoAlpha: 1, x: 0, y: 0, duration: 0.16 },
-          0.92,
-        );
-        addToIfPresent(
-          timeline,
-          fileCard,
+          supportPlacement.filter((item) => item !== placement03Card),
           {
             autoAlpha: 1,
-            x: 0,
             y: 0,
             scale: 1,
-            rotation: fileCardBaseRotation,
-            duration: 0.24,
+            duration: 0.16,
+            stagger: 0.03,
           },
-          0.98,
-        );
-        addToIfPresent(
-          timeline,
-          clip,
-          { autoAlpha: 1, y: 0, scale: 1, duration: 0.16 },
-          1.01,
-        );
-        addToIfPresent(
-          timeline,
-          checklist,
-          {
-            autoAlpha: 1,
-            x: 0,
-            y: 0,
-            scale: 1,
-            rotation: checklistBaseRotation,
-            duration: 0.18,
-          },
-          1.03,
+          1.2,
         );
 
         addToIfPresent(
           timeline,
-          labels,
+          routePath,
+          {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            rotation: routePathRotation,
+            duration: 0.24,
+          },
+          1.28,
+        );
+        addToIfPresent(
+          timeline,
+          routeArrows,
+          {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            rotation: routeArrowsRotation,
+            duration: 0.18,
+          },
+          1.34,
+        );
+        addToIfPresent(
+          timeline,
+          placement02Card,
+          {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            rotation: placement02Rotation,
+            duration: 0.22,
+          },
+          1.36,
+        );
+        addToIfPresent(
+          timeline,
+          routeLogic.filter((item) => item !== placement02Card && item !== routePath && item !== routeArrows),
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.16,
+            stagger: 0.03,
+          },
+          1.42,
+        );
+
+        addToIfPresent(
+          timeline,
+          placement01Card,
+          {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            rotation: placement01Rotation,
+            duration: 0.22,
+          },
+          1.52,
+        );
+        addToIfPresent(
+          timeline,
+          anchorPlacement.filter((item) => item !== placement01Card),
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.16,
+            stagger: 0.03,
+          },
+          1.58,
+        );
+
+        addToIfPresent(
+          timeline,
+          campaignFileCard,
+          {
+            autoAlpha: 1,
+            x: 0,
+            y: 0,
+            scale: 1,
+            rotation: campaignFileRotation,
+            duration: 0.22,
+          },
+          1.68,
+        );
+        addToIfPresent(
+          timeline,
+          campaignFileClip,
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            rotation: campaignClipRotation,
+            duration: 0.16,
+          },
+          1.72,
+        );
+
+        addToIfPresent(
+          timeline,
+          finalNotes,
           {
             autoAlpha: 1,
             y: 0,
             duration: 0.14,
-            stagger: 0.02,
-          },
-          1.1,
-        );
-        addToIfPresent(
-          timeline,
-          handwritten,
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.12,
             stagger: 0.03,
           },
-          1.14,
-        );
-
-        addToIfPresent(
-          timeline,
-          primaryCirclePaths,
-          {
-            strokeDashoffset: 0,
-            duration: 0.18,
-            onComplete: () => primaryCirclePaths.forEach(restoreStrokePath),
-          },
-          1.23,
-        );
-        addToIfPresent(
-          timeline,
-          scenicCirclePaths,
-          {
-            strokeDashoffset: 0,
-            duration: 0.16,
-            stagger: 0.03,
-            onComplete: () => scenicCirclePaths.forEach(restoreStrokePath),
-          },
-          1.33,
-        );
-        addToIfPresent(
-          timeline,
-          routePaths,
-          {
-            strokeDashoffset: 0,
-            duration: 0.26,
-            stagger: 0.04,
-            onComplete: () => routePaths.forEach(restoreStrokePath),
-          },
-          1.47,
-        );
-        addToIfPresent(
-          timeline,
-          routeDots,
-          {
-            autoAlpha: 1,
-            scale: 1,
-            duration: 0.12,
-            stagger: 0.03,
-          },
-          1.64,
-        );
-        addToIfPresent(
-          timeline,
-          arrowPaths,
-          {
-            strokeDashoffset: 0,
-            duration: 0.16,
-            stagger: 0.03,
-            onComplete: () => arrowPaths.forEach(restoreStrokePath),
-          },
-          1.74,
-        );
-        addToIfPresent(
-          timeline,
-          xMark,
-          {
-            autoAlpha: xMarkBaseOpacity,
-            clipPath: "inset(0% 0% 0% 0%)",
-            duration: 0.1,
-          },
-          1.84,
+          1.8,
         );
 
         return () => {

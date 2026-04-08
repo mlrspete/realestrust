@@ -62,9 +62,11 @@ function createItemStyle(item, boardSize) {
 }
 
 function renderAsset(item) {
+  const asset = item.asset ?? item.fallbackAsset;
+
   return (
     <img
-      src={item.asset}
+      src={asset}
       alt={item.alt ?? ""}
       draggable="false"
       decoding={item.decoding ?? "async"}
@@ -73,6 +75,8 @@ function renderAsset(item) {
       style={{
         objectFit: item.fit ?? "cover",
         objectPosition: item.objectPosition ?? "50% 50%",
+        transform: item.imageTransform,
+        transformOrigin: item.imageTransformOrigin ?? "50% 50%",
       }}
     />
   );
@@ -119,14 +123,19 @@ function BoardLayer({ band, items, boardSize }) {
 
         if (item.kind === "label") {
           return (
-            <div
+            <figure
               className={classes}
               key={item.id}
               style={style}
               {...itemProps}
             >
+              {item.asset ? (
+                <span className="board-label__asset-wrap" aria-hidden="true">
+                  {renderAsset(item)}
+                </span>
+              ) : null}
               <span className="board-label__text">{item.text}</span>
-            </div>
+            </figure>
           );
         }
 
@@ -155,64 +164,41 @@ function BoardLayer({ band, items, boardSize }) {
           );
         }
 
-        if (item.kind === "surfaceStrip") {
-          return (
-            <article className={classes} key={item.id} style={style} {...itemProps}>
-              <div className="board-surface-strip-copy">
-                <div className="board-surface-strip-copy__header">
-                  <span className="board-surface-strip-copy__kicker">
-                    {item.content?.kicker}
-                  </span>
-                  {item.content?.secondary ? (
-                    <span className="board-surface-strip-copy__secondary">
-                      {item.content.secondary}
-                    </span>
-                  ) : null}
-                </div>
-                <div className="board-surface-strip-copy__chips">
-                  {item.content?.chips?.map((chip) => (
-                    <span className="board-surface-strip-copy__chip" key={chip}>
-                      {chip}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </article>
-          );
-        }
-
-        if (item.kind === "checklist") {
-          return (
-            <figure className={classes} key={item.id} style={style} {...itemProps}>
-              {item.asset ? renderAsset(item) : null}
-              <figcaption className="board-checklist-copy">
-                <span className="board-checklist-copy__heading">
-                  {item.content?.heading}
-                </span>
-                <ul className="board-checklist-copy__items">
-                  {item.content?.items?.map((entry) => (
-                    <li className="board-checklist-copy__item" key={entry}>
-                      <span className="board-checklist-copy__tick" aria-hidden="true" />
-                      <span className="board-checklist-copy__text">{entry}</span>
-                    </li>
-                  ))}
-                </ul>
-              </figcaption>
-            </figure>
-          );
-        }
-
         if (item.kind === "fileCard") {
+          const variantClass = item.content?.variant
+            ? `board-file-card-copy--${item.content.variant}`
+            : "";
+
           return (
             <figure className={classes} key={item.id} style={style} {...itemProps}>
               {item.asset ? renderAsset(item) : null}
-              <figcaption className="board-file-card-copy">
-                <span className="board-file-card-copy__kicker">
-                  {item.content?.kicker}
-                </span>
-                <span className="board-file-card-copy__title">
-                  {item.content?.title}
-                </span>
+              <figcaption
+                className={["board-file-card-copy", variantClass]
+                  .filter(Boolean)
+                  .join(" ")}
+              >
+                {item.content?.kicker ? (
+                  <span className="board-file-card-copy__kicker">
+                    {item.content.kicker}
+                  </span>
+                ) : null}
+                {item.content?.title ? (
+                  <span className="board-file-card-copy__title">
+                    {item.content.title}
+                  </span>
+                ) : null}
+                {item.content?.body ? (
+                  <p className="board-file-card-copy__body">{item.content.body}</p>
+                ) : null}
+                {item.content?.list?.length ? (
+                  <ul className="board-file-card-copy__list">
+                    {item.content.list.map((entry) => (
+                      <li className="board-file-card-copy__list-item" key={entry}>
+                        {entry}
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
                 {item.content?.rows?.length ? (
                   <div className="board-file-card-copy__rows">
                     {item.content.rows.map((row) => {
@@ -235,6 +221,11 @@ function BoardLayer({ band, items, boardSize }) {
                       );
                     })}
                   </div>
+                ) : null}
+                {item.content?.footer ? (
+                  <span className="board-file-card-copy__footer">
+                    {item.content.footer}
+                  </span>
                 ) : null}
               </figcaption>
             </figure>
@@ -268,10 +259,14 @@ function BoardLayer({ band, items, boardSize }) {
               {...itemProps}
               aria-hidden="true"
             >
-              <BoardAnnotation
-                type={item.annotationType}
-                variant={item.annotationVariant}
-              />
+              {item.asset ? (
+                renderAsset(item)
+              ) : (
+                <BoardAnnotation
+                  type={item.annotationType}
+                  variant={item.annotationVariant}
+                />
+              )}
             </figure>
           );
         }
