@@ -313,9 +313,10 @@ const boardElements = {
     asset: curatedAssets.locked.placement03,
     alt: "Support placement proof",
     fit: "cover",
-    objectPosition: "50% 60%",
+    objectPosition: "50% 61%",
     radius: "18px",
-    className: "board-item--card board-item--card-secondary",
+    className:
+      "board-item--card board-item--card-secondary board-item--placement03-card",
     desktop: {
       x: 238,
       y: 657,
@@ -335,7 +336,10 @@ const boardElements = {
   },
   placement03Pill: {
     layer: "z3",
-    ...createPillSpec("PLACEMENT 03", "board-item--placement-label"),
+    ...createPillSpec(
+      "PLACEMENT 03",
+      "board-item--placement-label board-item--placement03-pill",
+    ),
     desktop: {
       x: 215,
       y: 625,
@@ -357,7 +361,7 @@ const boardElements = {
     layer: "z3",
     ...createPillSpec(
       "SELECTED ZONE",
-      "board-item--placement-label board-item--detail-label",
+      "board-item--placement-label board-item--detail-label board-item--selected-zone-pill",
     ),
     desktop: {
       x: 725,
@@ -463,9 +467,10 @@ const boardElements = {
     fallbackAsset: curatedAssets.locked.placement02Fallback,
     alt: "Bridge proof card",
     fit: "cover",
-    objectPosition: "54% 50%",
+    objectPosition: "56% 47%",
     radius: "18px",
-    className: "board-item--card board-item--card-alt",
+    className:
+      "board-item--card board-item--card-alt board-item--placement02-card",
     desktop: {
       x: 915,
       y: 255,
@@ -485,7 +490,10 @@ const boardElements = {
   },
   placement02Pill: {
     layer: "z3",
-    ...createPillSpec("PLACEMENT 02", "board-item--placement-label"),
+    ...createPillSpec(
+      "PLACEMENT 02",
+      "board-item--placement-label board-item--placement02-pill",
+    ),
     desktop: {
       x: 890,
       y: 230,
@@ -510,11 +518,12 @@ const boardElements = {
     asset: curatedAssets.locked.placement01,
     alt: "Hero placement proof",
     fit: "cover",
-    objectPosition: "50% 58%",
+    objectPosition: "50% 54%",
     loading: "eager",
     fetchPriority: "high",
     radius: "20px",
-    className: "board-item--card board-item--card-primary",
+    className:
+      "board-item--card board-item--card-primary board-item--placement01-card",
     desktop: {
       x: 1104,
       y: 129,
@@ -534,7 +543,10 @@ const boardElements = {
   },
   placement01Pill: {
     layer: "z3",
-    ...createPillSpec("PLACEMENT 01", "board-item--placement-label"),
+    ...createPillSpec(
+      "PLACEMENT 01",
+      "board-item--placement-label board-item--placement01-pill",
+    ),
     desktop: {
       x: 1141,
       y: 106,
@@ -772,9 +784,9 @@ const boardElements = {
     layer: "z3",
     ...createAnnotationNote("repeat dwell", "placement02Card", {
       anchorSide: "right",
-      color: "rgba(229, 219, 203, 0.8)",
+      color: "rgba(141, 66, 55, 0.88)",
       className:
-        "board-item--annotation-note board-item--handwritten board-item--handwritten-warm board-item--handwritten-compact",
+        "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact",
       desktop: {
         x: 802,
         y: 297,
@@ -788,9 +800,9 @@ const boardElements = {
   noteSkylineAnchor: {
     layer: "z3",
     ...createAnnotationNote("skyline anchor", "placement01Card", {
-      color: "rgba(233, 224, 210, 0.82)",
+      color: "rgba(141, 66, 55, 0.88)",
       className:
-        "board-item--annotation-note board-item--handwritten board-item--handwritten-warm board-item--handwritten-compact",
+        "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact",
       desktop: {
         x: 1457,
         y: 155,
@@ -837,7 +849,6 @@ export const boardAnimationGroups = {
     "placement02Card",
     "routeCircle02",
     "noteRepeatDwell",
-    "routeArrows",
   ],
   anchorPlacement: [
     "placement01Pill",

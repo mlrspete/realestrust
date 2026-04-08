@@ -112,7 +112,6 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
         const campaignFileCard = queryBoardItem(q, "campaignFileCard");
         const campaignFileClip = queryBoardItem(q, "campaignFileClip");
         const routePath = queryBoardItem(q, "routePath");
-        const routeArrows = queryBoardItem(q, "routeArrows");
         const zonePin = queryBoardItem(q, "zonePin");
 
         const mainMapBaseOpacity = getBaseOpacity(mainMap);
@@ -125,7 +124,6 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
         const campaignFileRotation = getBaseRotation(campaignFileCard);
         const campaignClipRotation = getBaseRotation(campaignFileClip);
         const routePathRotation = getBaseRotation(routePath);
-        const routeArrowsRotation = getBaseRotation(routeArrows);
         const zonePinRotation = getBaseRotation(zonePin);
 
         if (reduceMotion) {
@@ -212,12 +210,6 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             x: 0,
             y: 0,
             rotation: routePathRotation,
-          });
-          setIfPresent(routeArrows, {
-            autoAlpha: 1,
-            x: 0,
-            y: 0,
-            rotation: routeArrowsRotation,
           });
           setIfPresent(zonePin, {
             autoAlpha: 1,
@@ -395,17 +387,10 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
           rotation: routePathRotation - 1.2,
           transformOrigin: "50% 50%",
         });
-        setIfPresent(routeArrows, {
-          autoAlpha: 0,
-          x: 10,
-          y: -6,
-          rotation: routeArrowsRotation + 3,
-          transformOrigin: "50% 50%",
-        });
         setIfPresent(
           [
             ...supportPlacement.filter((item) => item !== placement03Card),
-            ...routeLogic.filter((item) => item !== placement02Card && item !== routePath && item !== routeArrows),
+            ...routeLogic.filter((item) => item !== placement02Card && item !== routePath),
             ...anchorPlacement.filter((item) => item !== placement01Card),
           ],
           {
@@ -634,18 +619,6 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
         );
         addToIfPresent(
           timeline,
-          routeArrows,
-          {
-            autoAlpha: 1,
-            x: 0,
-            y: 0,
-            rotation: routeArrowsRotation,
-            duration: 0.18,
-          },
-          1.34,
-        );
-        addToIfPresent(
-          timeline,
           placement02Card,
           {
             autoAlpha: 1,
@@ -658,7 +631,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
         );
         addToIfPresent(
           timeline,
-          routeLogic.filter((item) => item !== placement02Card && item !== routePath && item !== routeArrows),
+          routeLogic.filter((item) => item !== placement02Card && item !== routePath),
           {
             autoAlpha: 1,
             y: 0,

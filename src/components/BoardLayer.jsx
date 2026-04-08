@@ -12,7 +12,6 @@ const defaultParallaxDepthByRole = {
   base: 0.12,
   proof: 0.24,
   support: 0.22,
-  detail: 0.18,
   target: 0.12,
   annotation: 0.08,
   note: 0.34,
