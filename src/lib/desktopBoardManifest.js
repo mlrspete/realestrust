@@ -206,9 +206,9 @@ export const desktopBoardAssetSources = {
     source: "new board pack assets/board pack/map3 v3.png",
   },
   activationMap: {
-    runtime: assetPath("/hero-curated/locked/desktop-board/maps/map-2-v3.png"),
-    source: "public/hero-curated/locked/desktop-board/maps/map-2-v3.png",
-    note: "Activation map uses a dedicated v3 runtime filename to avoid stale browser caching on the old map-2.png URL.",
+    runtime: assetPath("/hero-curated/locked/desktop-board/maps/map-2-v4.png"),
+    source: "new board pack assets/board pack/map 2 v4.png",
+    note: "Activation map uses a dedicated v4 runtime filename so the updated artwork loads without changing the current frame crop.",
   },
   zone01Card: {
     runtime: assetPath("/hero-curated/locked/desktop-board/cards/rust_23_oilrig.webp"),
