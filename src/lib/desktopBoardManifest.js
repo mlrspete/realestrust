@@ -347,7 +347,7 @@ export const desktopBoardElements = {
     alt: "Activation field map",
     fit: "cover",
     objectPosition: "50% 0%",
-    imageTransform: "scale(1.28)",
+    imageTransform: "scale(1.4)",
     imageTransformOrigin: "50% 0%",
     radius: "28px",
     className: "board-item--map board-item--editorial-map board-item--activation-map",
