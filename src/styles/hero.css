@@ -2113,6 +2113,21 @@
   font-size: 0.58rem;
 }
 
+.board-composition[data-board-layout="desktop"] .board-item--left-map-ref .board-text__content {
+  font-size: 0.54rem;
+  letter-spacing: 0.15em;
+}
+
+.board-composition[data-board-layout="desktop"] .board-item--zone03-ref .board-text__content {
+  font-size: 0.56rem;
+  letter-spacing: 0.16em;
+}
+
+.board-composition[data-board-layout="desktop"] .board-item--zone-support-ref .board-text__content {
+  font-size: 0.56rem;
+  letter-spacing: 0.16em;
+}
+
 .board-composition[data-board-layout="desktop"] .board-item--map-title .board-text__content {
   font-size: 1.44rem;
   font-weight: 790;
@@ -2121,7 +2136,17 @@
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--activation-title .board-text__content {
-  font-size: 1.32rem;
+  font-size: 1.2rem;
+}
+
+.board-composition[data-board-layout="desktop"] .board-item--survey-title .board-text__content {
+  font-size: 1.12rem;
+  letter-spacing: -0.018em;
+}
+
+.board-composition[data-board-layout="desktop"] .board-item--route-index-title .board-text__content {
+  font-size: 1.08rem;
+  letter-spacing: -0.018em;
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--zone-headline .board-text__content {
@@ -2132,7 +2157,18 @@
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--zone03-headline .board-text__content {
-  font-size: 1rem;
+  font-size: 0.88rem;
+}
+
+.board-composition[data-board-layout="desktop"] .board-item--zone01-headline .board-text__content {
+  font-size: 1.02rem;
+  letter-spacing: -0.018em;
+}
+
+.board-composition[data-board-layout="desktop"] .board-item--zone02-headline .board-text__content,
+.board-composition[data-board-layout="desktop"] .board-item--zone04-headline .board-text__content {
+  font-size: 0.96rem;
+  letter-spacing: -0.016em;
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--editorial-subline .board-text__content {
@@ -2148,6 +2184,18 @@
 
 .board-composition[data-board-layout="desktop"] .board-item--activation-subline .board-text__content {
   color: rgba(128, 92, 82, 0.68);
+  font-size: 0.4rem;
+}
+
+.board-composition[data-board-layout="desktop"] .board-item--survey-subline .board-text__content,
+.board-composition[data-board-layout="desktop"] .board-item--route-index-subline .board-text__content {
+  font-size: 0.4rem;
+  letter-spacing: 0.13em;
+  line-height: 1.18;
+}
+
+.board-composition[data-board-layout="desktop"] .board-item--activation-ref .board-text__content {
+  font-size: 0.54rem;
 }
 
 .board-composition[data-board-layout="desktop"] .board-media-card-copy__label {
@@ -2227,6 +2275,14 @@
 
 .board-composition[data-board-layout="desktop"] .board-item--handwritten-compact .board-annotation-note__text {
   font-size: 0.8rem;
+}
+
+.board-composition[data-board-layout="desktop"] .board-item--held-attention-note .board-annotation-note__text {
+  font-size: 0.84rem;
+}
+
+.board-composition[data-board-layout="desktop"] .board-item--exposure-path-note .board-annotation-note__text {
+  font-size: 0.78rem;
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--primary-site-note .board-annotation-note__text {
