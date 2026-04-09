@@ -563,121 +563,110 @@ export const desktopBoardElements = {
     className: "board-item--marker board-item--marker-primary",
     desktop: {
       x: 1005,
-      y: 398,
+      y: 420,
       width: 80,
       height: 101,
       rotation: -1,
       zIndex: 13,
     },
   }),
-  surveyMapRef: createTextItem("REF. 001", "board-item--red-display board-item--map-ref", {
-    desktop: { x: 342, y: 12, maxWidth: 130, zIndex: 9 },
-  }),
+  surveyMapRef: createTextItem(
+    "REF. 001",
+    "board-item--red-display board-item--map-ref board-item--survey-ref",
+    {
+      desktop: { x: 372, y: 40, maxWidth: 86, zIndex: 9 },
+    },
+  ),
   surveyMapTitle: createTextItem(
     "TERRAIN SURVEY",
     "board-item--red-display board-item--map-title",
     {
-      desktop: { x: 236, y: 86, maxWidth: 238, zIndex: 9 },
+      desktop: { x: 264, y: 60, maxWidth: 188, zIndex: 9 },
     },
   ),
   surveyMapSubline: createTextItem(
     "MACRO VIEW / TERRAIN SPREAD / MONUMENT RELATION",
     "board-item--editorial-subline",
     {
-      desktop: { x: 190, y: 124, maxWidth: 284, zIndex: 9 },
+      desktop: { x: 264, y: 92, maxWidth: 224, zIndex: 9 },
     },
   ),
   routeIndexRef: createTextItem("REF. 002", "board-item--red-display board-item--map-ref", {
-    desktop: { x: 298, y: 534, maxWidth: 130, zIndex: 9 },
+    desktop: { x: 308, y: 520, maxWidth: 86, zIndex: 9 },
   }),
   routeIndexTitle: createTextItem(
     "ROUTE INDEX",
     "board-item--red-display board-item--map-title",
     {
-      desktop: { x: 176, y: 564, maxWidth: 246, zIndex: 9 },
+      desktop: { x: 188, y: 544, maxWidth: 172, zIndex: 9 },
     },
   ),
   routeIndexSubline: createTextItem(
     "PATHS / CROSSINGS / LIKELY EXPOSURE FLOW",
     "board-item--editorial-subline",
     {
-      desktop: { x: 144, y: 606, maxWidth: 278, zIndex: 9 },
+      desktop: { x: 188, y: 576, maxWidth: 212, zIndex: 9 },
     },
   ),
   activationMapRef: createTextItem(
     "REF. 003",
-    "board-item--red-display board-item--map-ref",
+    "board-item--red-display board-item--map-ref board-item--activation-ref",
     {
-      desktop: { x: 1525, y: 121, maxWidth: 130, zIndex: 9 },
+      desktop: { x: 1492, y: 258, maxWidth: 86, zIndex: 9 },
     },
   ),
   activationMapTitle: createTextItem(
     "ACTIVATION FIELD",
-    "board-item--red-display board-item--map-title",
+    "board-item--red-display board-item--map-title board-item--activation-title",
     {
-      desktop: { x: 1268, y: 153, maxWidth: 336, zIndex: 9 },
+      desktop: { x: 1272, y: 286, maxWidth: 244, zIndex: 9 },
     },
   ),
   activationMapSubline: createTextItem(
     "CANDIDATE PLACEMENTS / ROUTE LOGIC / VISIBILITY PLANNING",
-    "board-item--editorial-subline",
+    "board-item--editorial-subline board-item--activation-subline",
     {
-      desktop: { x: 1208, y: 198, maxWidth: 392, zIndex: 9 },
-    },
-  ),
-  activationPriorityStamp: createTextItem(
-    "[PRIORITY REGION]",
-    "board-item--red-display board-item--priority-stamp",
-    {
-      desktop: { x: 1230, y: 420, maxWidth: 220, zIndex: 10 },
+      desktop: { x: 1272, y: 318, maxWidth: 286, zIndex: 9 },
     },
   ),
   zone01Ref: createTextItem("REF. 004", "board-item--red-display board-item--zone-ref", {
-    desktop: { x: 534, y: 722, maxWidth: 122, zIndex: 11 },
+    desktop: { x: 530, y: 734, maxWidth: 92, zIndex: 11 },
   }),
   zone02Ref: createTextItem("REF. 006", "board-item--red-display board-item--zone-ref", {
-    desktop: { x: 764, y: 247, maxWidth: 122, zIndex: 11 },
+    desktop: { x: 746, y: 280, maxWidth: 92, zIndex: 11 },
   }),
   zone03Ref: createTextItem("REF. 005", "board-item--red-display board-item--zone-ref", {
-    desktop: { x: 1201, y: 34, maxWidth: 122, zIndex: 11 },
+    desktop: { x: 1182, y: 68, maxWidth: 92, zIndex: 11 },
   }),
   zone04Ref: createTextItem("REF. 007", "board-item--red-display board-item--zone-ref", {
-    desktop: { x: 1494, y: 440, maxWidth: 122, zIndex: 11 },
+    desktop: { x: 1452, y: 462, maxWidth: 92, zIndex: 11 },
   }),
   zone01Headline: createTextItem(
     "HERO ANCHOR",
     "board-item--red-display board-item--zone-headline",
     {
-      desktop: { x: 522, y: 690, maxWidth: 208, zIndex: 11 },
+      desktop: { x: 454, y: 704, maxWidth: 170, zIndex: 11 },
     },
   ),
   zone02Headline: createTextItem(
     "REPEAT DWELL",
     "board-item--red-display board-item--zone-headline",
     {
-      desktop: { x: 604, y: 407, maxWidth: 236, zIndex: 11 },
+      desktop: { x: 610, y: 374, maxWidth: 176, zIndex: 11 },
     },
   ),
   zone03Headline: createTextItem(
     "DISCOVERY POINT",
-    "board-item--red-display board-item--zone-headline",
+    "board-item--red-display board-item--zone-headline board-item--zone03-headline",
     {
-      desktop: { x: 925, y: 116, maxWidth: 214, zIndex: 11 },
+      desktop: { x: 992, y: 94, maxWidth: 176, zIndex: 11 },
     },
   ),
   zone04Headline: createTextItem(
     "ROUTE PICKUP",
     "board-item--red-display board-item--zone-headline",
     {
-      desktop: { x: 1262, y: 504, maxWidth: 206, zIndex: 11 },
-    },
-  ),
-  primarySiteBox: createTextItem(
-    "PRIMARY SITE",
-    "board-item--primary-site-box",
-    {
-      desktop: { x: 960, y: 342, maxWidth: 174, zIndex: 14 },
-      parallaxDepth: 0.2,
+      desktop: { x: 1280, y: 524, maxWidth: 162, zIndex: 11 },
     },
   ),
   dottedRoute: createAnnotationItem({
@@ -803,7 +792,7 @@ export const desktopBoardElements = {
     annotationVariant: "primaryOuter",
     desktop: {
       x: 972,
-      y: 373,
+      y: 395,
       width: 146,
       height: 151,
       rotation: -2,
@@ -817,7 +806,7 @@ export const desktopBoardElements = {
     annotationVariant: "primaryInner",
     desktop: {
       x: 990,
-      y: 391,
+      y: 413,
       width: 111,
       height: 114,
       rotation: 3,
@@ -833,10 +822,10 @@ export const desktopBoardElements = {
       className:
         "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact",
       desktop: {
-        x: 162,
-        y: 840,
-        rotation: -2.4,
-        maxWidth: 166,
+        x: 184,
+        y: 816,
+        rotation: -2.8,
+        maxWidth: 132,
         zIndex: 14,
       },
     },
@@ -847,10 +836,10 @@ export const desktopBoardElements = {
     className:
       "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact",
     desktop: {
-      x: 584,
-      y: 432,
-      rotation: -3.8,
-      maxWidth: 148,
+      x: 546,
+      y: 520,
+      rotation: -3.2,
+      maxWidth: 118,
       zIndex: 14,
     },
   }),
@@ -859,23 +848,35 @@ export const desktopBoardElements = {
     className:
       "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact",
     desktop: {
-      x: 1253,
-      y: 116,
-      rotation: 3,
-      maxWidth: 142,
+      x: 1312,
+      y: 214,
+      rotation: 2.4,
+      maxWidth: 116,
+      zIndex: 14,
+    },
+  }),
+  notePrimarySite: createAnnotationNote("PRIMARY SITE", "primarySiteMarker", {
+    anchorSide: "right",
+    color: "rgba(128, 76, 67, 0.84)",
+    className: "board-item--annotation-note board-item--primary-site-note",
+    desktop: {
+      x: 900,
+      y: 434,
+      rotation: -4.4,
+      maxWidth: 112,
       zIndex: 14,
     },
   }),
   noteExposurePath: createAnnotationNote("EXPOSURE PATH", "zone04Marker", {
-    anchorSide: "top",
+    anchorSide: "right",
     color: "rgba(141, 66, 55, 0.92)",
     className:
       "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact",
     desktop: {
-      x: 1423,
-      y: 638,
-      rotation: -2,
-      maxWidth: 132,
+      x: 1328,
+      y: 590,
+      rotation: -2.4,
+      maxWidth: 112,
       zIndex: 14,
     },
   }),
@@ -930,7 +931,6 @@ export const desktopBoardAnimationGroups = {
     "activationMapRef",
     "activationMapTitle",
     "activationMapSubline",
-    "activationPriorityStamp",
   ],
   supportDocs: [
     "siteFilterCard",
@@ -974,12 +974,12 @@ export const desktopBoardAnimationGroups = {
     "zone03Marker",
     "zone04Marker",
     "primarySiteMarker",
-    "primarySiteBox",
   ],
   notes: [
     "noteStrongHorizonRead",
     "noteHeldAttention",
     "noteAmbientTraffic",
+    "notePrimarySite",
     "noteExposurePath",
   ],
 };
