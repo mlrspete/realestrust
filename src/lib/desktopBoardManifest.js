@@ -381,10 +381,10 @@ export const desktopBoardElements = {
     imageTransform: "rotate(90deg) scale(1.12)",
     imageTransformOrigin: "50% 50%",
     desktop: {
-      x: 68,
-      y: 328,
-      width: 182,
-      height: 260,
+      x: 60,
+      y: 318,
+      width: 196,
+      height: 278,
       rotation: -1.4,
       zIndex: 6,
     },
@@ -401,8 +401,8 @@ export const desktopBoardElements = {
     className: "board-item--prop board-item--clip board-item--site-filter-clip",
     parallaxDepth: 0.16,
     desktop: createPlacement({
-      x: 60,
-      y: 312,
+      x: 54,
+      y: 300,
       width: 46,
       height: 44,
       zIndex: 8,
@@ -549,11 +549,11 @@ export const desktopBoardElements = {
     alt: "Zone 01 marker",
     className: "board-item--marker board-item--marker-secondary",
     desktop: {
-      x: 606,
-      y: 774,
+      x: 660,
+      y: 736,
       width: 75,
       height: 96,
-      rotation: -5,
+      rotation: -4,
       zIndex: 12,
     },
   }),
@@ -574,196 +574,148 @@ export const desktopBoardElements = {
     "REF. 001",
     "board-item--red-display board-item--map-ref board-item--survey-ref board-item--left-map-ref",
     {
-      desktop: { x: 324, y: 28, maxWidth: 68, zIndex: 9 },
+      desktop: { x: 414, y: 38, maxWidth: 68, zIndex: 9 },
     },
   ),
   surveyMapTitle: createTextItem(
     "TERRAIN SURVEY",
     "board-item--red-display board-item--map-title board-item--survey-title",
     {
-      desktop: { x: 288, y: 46, maxWidth: 156, zIndex: 9 },
+      desktop: { x: 362, y: 52, maxWidth: 120, zIndex: 9 },
     },
   ),
   surveyMapSubline: createTextItem(
     "MACRO VIEW / TERRAIN SPREAD / MONUMENT RELATION",
     "board-item--editorial-subline board-item--survey-subline",
     {
-      desktop: { x: 288, y: 72, maxWidth: 176, zIndex: 9 },
+      desktop: { x: 306, y: 82, maxWidth: 176, zIndex: 9 },
     },
   ),
   routeIndexRef: createTextItem(
     "REF. 002",
     "board-item--red-display board-item--map-ref board-item--left-map-ref",
     {
-      desktop: { x: 278, y: 530, maxWidth: 70, zIndex: 9 },
+      desktop: { x: 356, y: 542, maxWidth: 70, zIndex: 9 },
     },
   ),
   routeIndexTitle: createTextItem(
     "ROUTE INDEX",
     "board-item--red-display board-item--map-title board-item--route-index-title",
     {
-      desktop: { x: 244, y: 548, maxWidth: 138, zIndex: 9 },
+      desktop: { x: 300, y: 558, maxWidth: 126, zIndex: 9 },
     },
   ),
   routeIndexSubline: createTextItem(
     "PATHS / CROSSINGS / LIKELY EXPOSURE FLOW",
     "board-item--editorial-subline board-item--route-index-subline",
     {
-      desktop: { x: 244, y: 574, maxWidth: 172, zIndex: 9 },
+      desktop: { x: 256, y: 584, maxWidth: 170, zIndex: 9 },
     },
   ),
   activationMapRef: createTextItem(
     "REF. 003",
     "board-item--red-display board-item--map-ref board-item--activation-ref",
     {
-      desktop: { x: 1494, y: 206, maxWidth: 72, zIndex: 9 },
+      desktop: { x: 1560, y: 154, maxWidth: 72, zIndex: 9 },
     },
   ),
   activationMapTitle: createTextItem(
     "ACTIVATION FIELD",
     "board-item--red-display board-item--map-title board-item--activation-title",
     {
-      desktop: { x: 1382, y: 232, maxWidth: 204, zIndex: 9 },
+      desktop: { x: 1440, y: 170, maxWidth: 192, zIndex: 9 },
     },
   ),
   activationMapSubline: createTextItem(
     "CANDIDATE PLACEMENTS / ROUTE LOGIC / VISIBILITY PLANNING",
     "board-item--editorial-subline board-item--activation-subline",
     {
-      desktop: { x: 1382, y: 264, maxWidth: 228, zIndex: 9 },
+      desktop: { x: 1404, y: 196, maxWidth: 228, zIndex: 9 },
     },
   ),
   zone01Ref: createTextItem(
     "REF. 004",
     "board-item--red-display board-item--zone-ref board-item--zone-support-ref",
     {
-      desktop: { x: 542, y: 740, maxWidth: 74, zIndex: 11 },
+      desktop: { x: 554, y: 772, maxWidth: 74, zIndex: 11 },
     },
   ),
   zone02Ref: createTextItem(
     "REF. 006",
     "board-item--red-display board-item--zone-ref board-item--zone-support-ref",
     {
-      desktop: { x: 684, y: 286, maxWidth: 74, zIndex: 11 },
+      desktop: { x: 802, y: 278, maxWidth: 74, zIndex: 11 },
     },
   ),
   zone03Ref: createTextItem(
     "REF. 005",
     "board-item--red-display board-item--zone-ref board-item--zone03-ref",
     {
-      desktop: { x: 1208, y: 74, maxWidth: 74, zIndex: 11 },
+      desktop: { x: 1211, y: 60, maxWidth: 74, zIndex: 11 },
     },
   ),
   zone04Ref: createTextItem(
     "REF. 007",
     "board-item--red-display board-item--zone-ref board-item--zone-support-ref",
     {
-      desktop: { x: 1388, y: 480, maxWidth: 74, zIndex: 11 },
+      desktop: { x: 1490, y: 452, maxWidth: 74, zIndex: 11 },
     },
   ),
   zone01Headline: createTextItem(
     "HERO ANCHOR",
     "board-item--red-display board-item--zone-headline board-item--zone01-headline",
     {
-      desktop: { x: 432, y: 724, maxWidth: 148, zIndex: 11 },
+      desktop: { x: 510, y: 788, maxWidth: 118, zIndex: 11 },
     },
   ),
   zone02Headline: createTextItem(
     "REPEAT DWELL",
     "board-item--red-display board-item--zone-headline board-item--zone02-headline",
     {
-      desktop: { x: 548, y: 336, maxWidth: 140, zIndex: 11 },
+      desktop: { x: 752, y: 294, maxWidth: 124, zIndex: 11 },
     },
   ),
   zone03Headline: createTextItem(
     "DISCOVERY POINT",
     "board-item--red-display board-item--zone-headline board-item--zone03-headline",
     {
-      desktop: { x: 856, y: 98, maxWidth: 152, zIndex: 11 },
+      desktop: { x: 1153, y: 76, maxWidth: 132, zIndex: 11 },
     },
   ),
   zone04Headline: createTextItem(
     "ROUTE PICKUP",
     "board-item--red-display board-item--zone-headline board-item--zone04-headline",
     {
-      desktop: { x: 1276, y: 492, maxWidth: 126, zIndex: 11 },
+      desktop: { x: 1440, y: 468, maxWidth: 124, zIndex: 11 },
     },
   ),
-  dottedRoute: createAnnotationItem({
-    annotationType: "desktopDottedRoute",
+  routeNetwork: {
+    layer: "z2",
+    role: "annotation",
+    kind: "annotation",
+    annotationType: "desktopRouteNetwork",
     className:
-      "board-item--annotation board-item--annotation-route-major board-item--dotted-route",
+      "board-item--annotation board-item--annotation-route-major board-item--route-network",
     opacity: 0.94,
-    desktop: {
-      x: 410,
-      y: 428,
-      width: 1050,
-      height: 380,
-      zIndex: 9,
-    },
-  }),
-  arrowToZone01: createAnnotationItem({
-    annotationType: "arrow",
-    annotationVariant: "siteFlow",
-    className: "board-item--annotation board-item--annotation-arrow board-item--primary-arrow",
-    desktop: {
-      x: 716,
-      y: 570,
-      width: 256,
-      height: 130,
-      rotation: 160,
-      zIndex: 10,
-    },
-  }),
-  arrowToZone02: createAnnotationItem({
-    annotationType: "arrow",
-    annotationVariant: "siteFlow",
-    className: "board-item--annotation board-item--annotation-arrow board-item--primary-arrow",
-    desktop: {
-      x: 781,
-      y: 412,
-      width: 240,
-      height: 124,
-      rotation: 188,
-      zIndex: 10,
-    },
-  }),
-  arrowToZone03: createAnnotationItem({
-    annotationType: "arrow",
-    annotationVariant: "siteFlow",
-    className: "board-item--annotation board-item--annotation-arrow board-item--primary-arrow",
-    desktop: {
-      x: 923,
-      y: 302,
-      width: 210,
-      height: 118,
-      rotation: -70,
-      zIndex: 10,
-    },
-  }),
-  arrowToZone04: createAnnotationItem({
-    annotationType: "arrow",
-    annotationVariant: "siteFlow",
-    className: "board-item--annotation board-item--annotation-arrow board-item--primary-arrow",
-    desktop: {
-      x: 1131,
-      y: 485,
-      width: 252,
-      height: 126,
-      rotation: 48,
-      zIndex: 10,
-    },
-  }),
+    parallaxDepth: 0.12,
+    desktop: createPlacement({
+      x: 650,
+      y: 226,
+      width: 850,
+      height: 580,
+      zIndex: 4,
+    }),
+  },
   circleZone01: createAnnotationItem({
     annotationType: "circle",
     className: "board-item--annotation board-item--annotation-circle-focus",
     annotationVariant: "zone",
     desktop: {
-      x: 591,
-      y: 767,
+      x: 644,
+      y: 729,
       width: 106,
       height: 110,
-      rotation: -9,
+      rotation: -7,
       zIndex: 11,
     },
   }),
@@ -837,15 +789,15 @@ export const desktopBoardElements = {
     "STRONG HORIZON READ",
     "zone01Card",
     {
-      anchorSide: "right",
+      anchorSide: "left",
       color: "rgba(141, 66, 55, 0.92)",
       className:
         "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact",
       desktop: {
-        x: 136,
-        y: 784,
-        rotation: -2.2,
-        maxWidth: 118,
+        x: 714,
+        y: 856,
+        rotation: 6,
+        maxWidth: 94,
         zIndex: 14,
       },
     },
@@ -856,10 +808,10 @@ export const desktopBoardElements = {
     className:
       "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact board-item--held-attention-note",
     desktop: {
-      x: 462,
-      y: 502,
-      rotation: -2.6,
-      maxWidth: 110,
+      x: 540,
+      y: 520,
+      rotation: -20,
+      maxWidth: 92,
       zIndex: 14,
     },
   }),
@@ -869,10 +821,10 @@ export const desktopBoardElements = {
     className:
       "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact",
     desktop: {
-      x: 1276,
-      y: 118,
-      rotation: 1.8,
-      maxWidth: 104,
+      x: 1440,
+      y: 92,
+      rotation: -5,
+      maxWidth: 94,
       zIndex: 14,
     },
   }),
@@ -894,10 +846,10 @@ export const desktopBoardElements = {
     className:
       "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact board-item--exposure-path-note",
     desktop: {
-      x: 1288,
-      y: 554,
-      rotation: -2,
-      maxWidth: 104,
+      x: 1374,
+      y: 620,
+      rotation: -16,
+      maxWidth: 96,
       zIndex: 14,
     },
   }),
@@ -905,7 +857,7 @@ export const desktopBoardElements = {
     "sightline strength",
     "board-item--site-filter-tick",
     {
-      desktop: { x: 90, y: 396, maxWidth: 138, zIndex: 8 },
+      desktop: { x: 84, y: 394, maxWidth: 146, zIndex: 8 },
       color: "#261d15",
       parallaxDepth: 0.28,
     },
@@ -914,7 +866,7 @@ export const desktopBoardElements = {
     "repeat exposure",
     "board-item--site-filter-tick",
     {
-      desktop: { x: 90, y: 428, maxWidth: 138, zIndex: 8 },
+      desktop: { x: 84, y: 430, maxWidth: 146, zIndex: 8 },
       color: "#261d15",
       parallaxDepth: 0.28,
     },
@@ -923,7 +875,7 @@ export const desktopBoardElements = {
     "landmark fit",
     "board-item--site-filter-tick",
     {
-      desktop: { x: 90, y: 460, maxWidth: 138, zIndex: 8 },
+      desktop: { x: 84, y: 466, maxWidth: 146, zIndex: 8 },
       color: "#261d15",
       parallaxDepth: 0.28,
     },
@@ -932,7 +884,7 @@ export const desktopBoardElements = {
     "strong recall",
     "board-item--site-filter-tick",
     {
-      desktop: { x: 90, y: 492, maxWidth: 138, zIndex: 8 },
+      desktop: { x: 84, y: 502, maxWidth: 146, zIndex: 8 },
       color: "#261d15",
       parallaxDepth: 0.28,
     },
@@ -977,11 +929,7 @@ export const desktopBoardAnimationGroups = {
     "zone04Headline",
   ],
   routeMarkup: [
-    "dottedRoute",
-    "arrowToZone01",
-    "arrowToZone02",
-    "arrowToZone03",
-    "arrowToZone04",
+    "routeNetwork",
     "circleZone01",
     "circleZone02",
     "circleZone03",

@@ -161,6 +161,58 @@ function BoardAnnotation({ type, variant }) {
     );
   }
 
+  if (type === "desktopRouteNetwork") {
+    return (
+      <svg
+        className="board-annotation-svg"
+        viewBox="0 0 850 580"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          data-draw-path="route"
+          data-final-dash="7 18"
+          d="M395 286C393 252 391 220 384 187C378 152 370 96 363 48"
+          stroke="currentColor"
+          strokeWidth="7.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeDasharray="7 18"
+        />
+        <path
+          data-draw-path="route"
+          data-final-dash="7 18"
+          d="M395 286C348 285 302 282 256 279C208 276 159 274 107 273"
+          stroke="currentColor"
+          strokeWidth="7.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeDasharray="7 18"
+        />
+        <path
+          data-draw-path="route"
+          data-final-dash="7 18"
+          d="M395 286C461 297 531 322 604 356C672 389 744 416 819 422"
+          stroke="currentColor"
+          strokeWidth="7.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeDasharray="7 18"
+        />
+        <path
+          data-draw-path="route"
+          data-final-dash="7 18"
+          d="M395 286C349 318 314 353 286 394C256 438 242 483 214 520C178 566 102 590 48 558"
+          stroke="currentColor"
+          strokeWidth="7.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeDasharray="7 18"
+        />
+      </svg>
+    );
+  }
+
   if (type === "circle") {
     const strokeWidth =
       variant === "primaryOuter" ? 13.5 : variant === "primaryInner" ? 9.5 : 7.5;
