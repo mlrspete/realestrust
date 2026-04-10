@@ -199,11 +199,11 @@ export const desktopBoardAssetSources = {
   },
   surveyMap: {
     runtime: assetPath("/hero-curated/locked/desktop-board/maps/map-1.png"),
-    source: "new board pack assets/board pack/map 1 v3.png",
+    source: "new board pack assets/board pack/map 1 v4.png",
   },
   routeIndexMap: {
     runtime: assetPath("/hero-curated/locked/desktop-board/maps/map-3.png"),
-    source: "new board pack assets/board pack/map3 v3.png",
+    source: "new board pack assets/board pack/map3 v4.png",
   },
   activationMap: {
     runtime: assetPath("/hero-curated/locked/desktop-board/maps/map-2-v4.png"),
