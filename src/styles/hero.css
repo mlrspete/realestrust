@@ -868,8 +868,13 @@
     inset 0 0 0 1px rgba(255, 255, 255, 0.024);
 }
 
+.board-item--activation-map::before,
+.board-item--activation-map::after {
+  background: none;
+}
+
 .board-item--activation-map img {
-  filter: saturate(0.36) brightness(0.78) contrast(1.05) sepia(0.05);
+  filter: none;
 }
 
 .board-item--detail-card {
@@ -2043,7 +2048,7 @@
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--activation-map img {
-  filter: saturate(0.38) brightness(0.77) contrast(1.04) sepia(0.05);
+  filter: none;
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--zone-card {
