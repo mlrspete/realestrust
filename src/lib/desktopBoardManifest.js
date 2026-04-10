@@ -244,6 +244,13 @@ export const desktopBoardAssetSources = {
     runtime: assetPath("/hero-curated/locked/desktop-board/debug/board-rough-concept.png"),
     source: "new board pack assets/board pack/board very very rough assembly reference.png",
   },
+  boardFinalPassConceptOverlay: {
+    runtime: assetPath(
+      "/hero-curated/locked/desktop-board/debug/board-final-pass-concept-overlay.png",
+    ),
+    source: "new board pack assets/board pack/FINAL-PASS-CONCEPT-BOARD.png",
+    note: "Debug-only overlay extracted from the final-pass concept board pink placement marks.",
+  },
   campaignFilePaper: {
     runtime: assetPath("/hero-curated/locked/board/loose-leaf-note-02.png"),
     source: "asset pack for rr/v1/board-elements/loose-leaf-note-02.png",
@@ -267,12 +274,16 @@ export const desktopBoardAssets = {
   redMarker: desktopBoardAssetSources.redMarker.runtime,
   whiteMarker: desktopBoardAssetSources.whiteMarker.runtime,
   boardRoughConcept: desktopBoardAssetSources.boardRoughConcept.runtime,
+  boardFinalPassConceptOverlay:
+    desktopBoardAssetSources.boardFinalPassConceptOverlay.runtime,
   campaignFilePaper: desktopBoardAssetSources.campaignFilePaper.runtime,
   campaignFileClip: desktopBoardAssetSources.campaignFileClip.runtime,
 };
 
 export const desktopBoardDebugAssets = {
+  boardOverlay: desktopBoardAssets.boardFinalPassConceptOverlay,
   boardRoughConcept: desktopBoardAssets.boardRoughConcept,
+  boardFinalPassConceptOverlay: desktopBoardAssets.boardFinalPassConceptOverlay,
 };
 
 const campaignFileContent = {
@@ -574,14 +585,14 @@ export const desktopBoardElements = {
     "REF. 001",
     "board-item--red-display board-item--map-ref board-item--survey-ref board-item--left-map-ref",
     {
-      desktop: { x: 414, y: 38, maxWidth: 68, zIndex: 9 },
+      desktop: { x: 386, y: 54, maxWidth: 74, zIndex: 9 },
     },
   ),
   surveyMapTitle: createTextItem(
-    "TERRAIN SURVEY",
+    "TERRAIN\nSURVEY",
     "board-item--red-display board-item--map-title board-item--survey-title",
     {
-      desktop: { x: 362, y: 52, maxWidth: 120, zIndex: 9 },
+      desktop: { x: 356, y: 64, maxWidth: 104, zIndex: 9 },
     },
   ),
   surveyMapSubline: createTextItem(
@@ -595,14 +606,14 @@ export const desktopBoardElements = {
     "REF. 002",
     "board-item--red-display board-item--map-ref board-item--left-map-ref",
     {
-      desktop: { x: 356, y: 542, maxWidth: 70, zIndex: 9 },
+      desktop: { x: 336, y: 558, maxWidth: 74, zIndex: 9 },
     },
   ),
   routeIndexTitle: createTextItem(
-    "ROUTE INDEX",
+    "ROUTE\nINDEX",
     "board-item--red-display board-item--map-title board-item--route-index-title",
     {
-      desktop: { x: 300, y: 558, maxWidth: 126, zIndex: 9 },
+      desktop: { x: 292, y: 566, maxWidth: 110, zIndex: 9 },
     },
   ),
   routeIndexSubline: createTextItem(
@@ -616,14 +627,14 @@ export const desktopBoardElements = {
     "REF. 003",
     "board-item--red-display board-item--map-ref board-item--activation-ref",
     {
-      desktop: { x: 1560, y: 154, maxWidth: 72, zIndex: 9 },
+      desktop: { x: 1498, y: 148, maxWidth: 78, zIndex: 9 },
     },
   ),
   activationMapTitle: createTextItem(
     "ACTIVATION FIELD",
     "board-item--red-display board-item--map-title board-item--activation-title",
     {
-      desktop: { x: 1440, y: 170, maxWidth: 192, zIndex: 9 },
+      desktop: { x: 1378, y: 164, maxWidth: 200, zIndex: 9 },
     },
   ),
   activationMapSubline: createTextItem(
@@ -637,56 +648,56 @@ export const desktopBoardElements = {
     "REF. 004",
     "board-item--red-display board-item--zone-ref board-item--zone-support-ref",
     {
-      desktop: { x: 554, y: 772, maxWidth: 74, zIndex: 11 },
+      desktop: { x: 528, y: 786, maxWidth: 76, zIndex: 11 },
     },
   ),
   zone02Ref: createTextItem(
     "REF. 006",
     "board-item--red-display board-item--zone-ref board-item--zone-support-ref",
     {
-      desktop: { x: 802, y: 278, maxWidth: 74, zIndex: 11 },
+      desktop: { x: 776, y: 290, maxWidth: 76, zIndex: 11 },
     },
   ),
   zone03Ref: createTextItem(
     "REF. 005",
     "board-item--red-display board-item--zone-ref board-item--zone03-ref",
     {
-      desktop: { x: 1211, y: 60, maxWidth: 74, zIndex: 11 },
+      desktop: { x: 1174, y: 74, maxWidth: 78, zIndex: 11 },
     },
   ),
   zone04Ref: createTextItem(
     "REF. 007",
     "board-item--red-display board-item--zone-ref board-item--zone-support-ref",
     {
-      desktop: { x: 1490, y: 452, maxWidth: 74, zIndex: 11 },
+      desktop: { x: 1458, y: 462, maxWidth: 76, zIndex: 11 },
     },
   ),
   zone01Headline: createTextItem(
-    "HERO ANCHOR",
+    "HERO\nANCHOR",
     "board-item--red-display board-item--zone-headline board-item--zone01-headline",
     {
-      desktop: { x: 510, y: 788, maxWidth: 118, zIndex: 11 },
+      desktop: { x: 486, y: 800, maxWidth: 112, zIndex: 11 },
     },
   ),
   zone02Headline: createTextItem(
-    "REPEAT DWELL",
+    "REPEAT\nDWELL",
     "board-item--red-display board-item--zone-headline board-item--zone02-headline",
     {
-      desktop: { x: 752, y: 294, maxWidth: 124, zIndex: 11 },
+      desktop: { x: 720, y: 300, maxWidth: 118, zIndex: 11 },
     },
   ),
   zone03Headline: createTextItem(
     "DISCOVERY POINT",
     "board-item--red-display board-item--zone-headline board-item--zone03-headline",
     {
-      desktop: { x: 1153, y: 76, maxWidth: 132, zIndex: 11 },
+      desktop: { x: 1100, y: 88, maxWidth: 152, zIndex: 11 },
     },
   ),
   zone04Headline: createTextItem(
-    "ROUTE PICKUP",
+    "ROUTE\nPICKUP",
     "board-item--red-display board-item--zone-headline board-item--zone04-headline",
     {
-      desktop: { x: 1440, y: 468, maxWidth: 124, zIndex: 11 },
+      desktop: { x: 1398, y: 472, maxWidth: 118, zIndex: 11 },
     },
   ),
   routeNetwork: {
@@ -794,10 +805,10 @@ export const desktopBoardElements = {
       className:
         "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact",
       desktop: {
-        x: 714,
-        y: 856,
-        rotation: 6,
-        maxWidth: 94,
+        x: 670,
+        y: 836,
+        rotation: 4,
+        maxWidth: 82,
         zIndex: 14,
       },
     },
@@ -821,10 +832,10 @@ export const desktopBoardElements = {
     className:
       "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact",
     desktop: {
-      x: 1440,
-      y: 92,
-      rotation: -5,
-      maxWidth: 94,
+      x: 1246,
+      y: 80,
+      rotation: -6,
+      maxWidth: 96,
       zIndex: 14,
     },
   }),
@@ -846,10 +857,10 @@ export const desktopBoardElements = {
     className:
       "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact board-item--exposure-path-note",
     desktop: {
-      x: 1374,
-      y: 620,
-      rotation: -16,
-      maxWidth: 96,
+      x: 1272,
+      y: 640,
+      rotation: -18,
+      maxWidth: 82,
       zIndex: 14,
     },
   }),

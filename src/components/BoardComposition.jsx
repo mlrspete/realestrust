@@ -88,7 +88,7 @@ function BoardComposition({ motionRef, parallaxRef, boardRef }) {
                 <div className="board-debug-overlay" aria-hidden="true">
                   <img
                     className="board-debug-overlay__image"
-                    src={heroManifest.debugAssets.boardRoughConcept}
+                    src={heroManifest.debugAssets.boardOverlay}
                     alt=""
                     draggable="false"
                     decoding="async"
