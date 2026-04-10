@@ -508,8 +508,8 @@ export const desktopBoardElements = {
       "board-item--file-card board-item--document-card board-item--campaign-file-card",
     radius: "22px",
     desktop: {
-      x: 1328,
-      y: 790,
+      x: 1298,
+      y: 788,
       width: 312,
       height: 186,
       rotation: -1.6,
@@ -528,8 +528,8 @@ export const desktopBoardElements = {
     className: "board-item--prop board-item--clip board-item--campaign-file-clip",
     parallaxDepth: 0.16,
     desktop: createPlacement({
-      x: 1448,
-      y: 772,
+      x: 1418,
+      y: 770,
       width: 72,
       height: 64,
       zIndex: 7,
@@ -632,21 +632,21 @@ export const desktopBoardElements = {
     "REF. 003",
     "board-item--red-display board-item--map-ref board-item--activation-ref",
     {
-      desktop: { x: 1498, y: 148, maxWidth: 78, zIndex: 9 },
+      desktop: { x: 1438, y: 152, maxWidth: 78, zIndex: 9 },
     },
   ),
   activationMapTitle: createTextItem(
     "ACTIVATION\nFIELD",
     "board-item--red-display board-item--map-title board-item--activation-title",
     {
-      desktop: { x: 1486, y: 158, maxWidth: 122, zIndex: 9 },
+      desktop: { x: 1408, y: 164, maxWidth: 126, zIndex: 9 },
     },
   ),
   activationMapSubline: createTextItem(
     "CANDIDATE PLACEMENTS / ROUTE LOGIC / VISIBILITY PLANNING",
     "board-item--editorial-subline board-item--activation-subline",
     {
-      desktop: { x: 1404, y: 196, maxWidth: 228, zIndex: 9 },
+      desktop: { x: 1318, y: 202, maxWidth: 236, zIndex: 9 },
     },
   ),
   zone01Ref: createTextItem(
@@ -780,12 +780,12 @@ export const desktopBoardElements = {
       anchorSide: "left",
       color: "rgba(172, 80, 70, 0.98)",
       className:
-        "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact",
+        "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact board-item--strong-horizon-note",
       desktop: {
-        x: 720,
-        y: 824,
-        rotation: -5,
-        maxWidth: 94,
+        x: 648,
+        y: 844,
+        rotation: -4.8,
+        maxWidth: 98,
         zIndex: 14,
       },
     },
@@ -794,12 +794,12 @@ export const desktopBoardElements = {
     anchorSide: "left",
     color: "rgba(172, 80, 70, 0.98)",
     className:
-      "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact",
+      "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact board-item--discovery-point-note",
     desktop: {
-      x: 1230,
-      y: 52,
-      rotation: -6,
-      maxWidth: 114,
+      x: 1268,
+      y: 80,
+      rotation: -4.8,
+      maxWidth: 118,
       zIndex: 14,
     },
   }),
@@ -816,15 +816,15 @@ export const desktopBoardElements = {
     },
   }),
   noteExposurePath: createAnnotationNote("EXPOSURE PATH", "zone04Marker", {
-    anchorSide: "top",
+    anchorSide: "left",
     color: "rgba(172, 80, 70, 0.98)",
     className:
       "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact board-item--exposure-path-note",
     desktop: {
-      x: 1294,
-      y: 600,
-      rotation: -8,
-      maxWidth: 102,
+      x: 1238,
+      y: 652,
+      rotation: -7.4,
+      maxWidth: 110,
       zIndex: 14,
     },
   }),
@@ -832,7 +832,7 @@ export const desktopBoardElements = {
     "sightline\nstrength",
     "board-item--site-filter-tick",
     {
-      desktop: { x: 26, y: 406, maxWidth: 116, zIndex: 8 },
+      desktop: { x: 42, y: 402, maxWidth: 124, zIndex: 8 },
       color: "#261d15",
       parallaxDepth: 0.28,
     },
@@ -841,7 +841,7 @@ export const desktopBoardElements = {
     "repeat\nexposure",
     "board-item--site-filter-tick",
     {
-      desktop: { x: 26, y: 442, maxWidth: 116, zIndex: 8 },
+      desktop: { x: 42, y: 452, maxWidth: 124, zIndex: 8 },
       color: "#261d15",
       parallaxDepth: 0.28,
     },
@@ -850,7 +850,7 @@ export const desktopBoardElements = {
     "landmark fit",
     "board-item--site-filter-tick",
     {
-      desktop: { x: 26, y: 482, maxWidth: 116, zIndex: 8 },
+      desktop: { x: 42, y: 506, maxWidth: 124, zIndex: 8 },
       color: "#261d15",
       parallaxDepth: 0.28,
     },
@@ -859,7 +859,7 @@ export const desktopBoardElements = {
     "strong recall",
     "board-item--site-filter-tick",
     {
-      desktop: { x: 26, y: 514, maxWidth: 116, zIndex: 8 },
+      desktop: { x: 42, y: 554, maxWidth: 124, zIndex: 8 },
       color: "#261d15",
       parallaxDepth: 0.28,
     },

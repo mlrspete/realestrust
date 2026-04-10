@@ -1900,6 +1900,7 @@
 .board-item--site-filter-tick {
   --tick-progress: 1;
   gap: 10px;
+  align-items: flex-start;
 }
 
 .board-item--site-filter-tick::before {
@@ -1909,7 +1910,8 @@
   flex: 0 0 auto;
   border-left: 3px solid rgba(182, 64, 56, 0.94);
   border-bottom: 3px solid rgba(182, 64, 56, 0.94);
-  transform: translateY(-1px) rotate(-45deg) scale(var(--tick-progress));
+  margin-top: 0.18rem;
+  transform: translateY(1px) rotate(-45deg) scale(var(--tick-progress));
   transform-origin: left center;
 }
 
@@ -2032,8 +2034,8 @@
 
 .board-composition[data-board-layout="desktop"] .board-item--site-filter-card .board-file-card-copy {
   z-index: 2;
-  gap: 2px;
-  padding: 16px 16px 14px 14px;
+  gap: 5px;
+  padding: 20px 16px 14px 14px;
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--site-filter-card .board-file-card-copy::before {
@@ -2043,7 +2045,7 @@
 .board-composition[data-board-layout="desktop"] .board-item--site-filter-card .board-file-card-copy::after {
   left: 14px;
   right: 14px;
-  top: 44px;
+  top: 39px;
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--annotation {
@@ -2353,17 +2355,24 @@
   white-space: nowrap;
 }
 
+.board-composition[data-board-layout="desktop"] .board-item--site-filter-tick {
+  gap: 12px;
+}
+
 .board-composition[data-board-layout="desktop"] .board-item--site-filter-tick::before {
   width: 14px;
   height: 7px;
   border-left-width: 2.5px;
   border-bottom-width: 2.5px;
+  margin-top: 0.22rem;
+  margin-left: -7px;
+  transform: translateY(2px) rotate(-45deg) scale(var(--tick-progress));
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--site-filter-tick .board-text__content {
   color: rgba(26, 20, 15, 0.96);
   font-size: 0.8rem;
-  line-height: 0.9;
+  line-height: 0.94;
   letter-spacing: 0;
   text-wrap: pretty;
 }
@@ -2440,6 +2449,10 @@
 
 .board-composition[data-board-layout="desktop"] .board-item--handwritten-compact .board-annotation-note__text {
   font-size: 0.86rem;
+}
+
+.board-composition[data-board-layout="desktop"] .board-item--strong-horizon-note .board-annotation-note__line {
+  width: 2.34rem;
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--exposure-path-note .board-annotation-note__text {
@@ -3011,6 +3024,53 @@
     background:
       radial-gradient(circle at 20% 18%, rgba(221, 211, 194, 0.04), transparent 0 20%),
       linear-gradient(180deg, rgba(24, 27, 31, 0.18), rgba(8, 11, 14, 0.22));
+  }
+}
+
+@media (max-width: 1480px) and (min-width: 1181px) {
+  .hero-grid {
+    grid-template-columns: minmax(320px, 420px) minmax(720px, 1fr);
+    gap: clamp(52px, 5vw, 84px);
+  }
+
+  .hero-copy {
+    max-width: 430px;
+  }
+
+  .hero-title {
+    font-size: clamp(3.55rem, 5.05vw, 5.35rem);
+  }
+
+  .board-stage {
+    width: min(57vw, 920px);
+  }
+
+  .board-composition[data-board-layout="desktop"] .board-item--site-filter-card .board-file-card-copy {
+    padding: 18px 14px 13px 12px;
+  }
+
+  .board-composition[data-board-layout="desktop"] .board-item--site-filter-card .board-file-card-copy::after {
+    left: 12px;
+    right: 12px;
+    top: 35px;
+  }
+
+  .board-composition[data-board-layout="desktop"] .board-file-card-copy--filter .board-file-card-copy__kicker {
+    font-size: 0.78rem;
+  }
+
+  .board-composition[data-board-layout="desktop"] .board-file-card-copy--campaign {
+    gap: 8px;
+    padding: 24px 26px 18px;
+  }
+
+  .board-composition[data-board-layout="desktop"] .board-file-card-copy--campaign .board-file-card-copy__kicker {
+    font-size: 0.61rem;
+  }
+
+  .board-composition[data-board-layout="desktop"] .board-file-card-copy--campaign .board-file-card-copy__title {
+    font-size: 1.22rem;
+    line-height: 0.88;
   }
 }
 
