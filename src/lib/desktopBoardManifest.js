@@ -381,10 +381,10 @@ export const desktopBoardElements = {
     imageTransform: "rotate(90deg) scale(1.12)",
     imageTransformOrigin: "50% 50%",
     desktop: {
-      x: 60,
-      y: 318,
-      width: 196,
-      height: 278,
+      x: 54,
+      y: 314,
+      width: 214,
+      height: 294,
       rotation: -1.4,
       zIndex: 6,
     },
@@ -401,8 +401,8 @@ export const desktopBoardElements = {
     className: "board-item--prop board-item--clip board-item--site-filter-clip",
     parallaxDepth: 0.16,
     desktop: createPlacement({
-      x: 54,
-      y: 300,
+      x: 58,
+      y: 314,
       width: 46,
       height: 44,
       zIndex: 8,
@@ -854,19 +854,19 @@ export const desktopBoardElements = {
     },
   }),
   siteFilterTick01: createTextItem(
-    "sightline strength",
+    "sightline\nstrength",
     "board-item--site-filter-tick",
     {
-      desktop: { x: 84, y: 394, maxWidth: 146, zIndex: 8 },
+      desktop: { x: 26, y: 406, maxWidth: 116, zIndex: 8 },
       color: "#261d15",
       parallaxDepth: 0.28,
     },
   ),
   siteFilterTick02: createTextItem(
-    "repeat exposure",
+    "repeat\nexposure",
     "board-item--site-filter-tick",
     {
-      desktop: { x: 84, y: 430, maxWidth: 146, zIndex: 8 },
+      desktop: { x: 26, y: 442, maxWidth: 116, zIndex: 8 },
       color: "#261d15",
       parallaxDepth: 0.28,
     },
@@ -875,7 +875,7 @@ export const desktopBoardElements = {
     "landmark fit",
     "board-item--site-filter-tick",
     {
-      desktop: { x: 84, y: 466, maxWidth: 146, zIndex: 8 },
+      desktop: { x: 26, y: 482, maxWidth: 116, zIndex: 8 },
       color: "#261d15",
       parallaxDepth: 0.28,
     },
@@ -884,7 +884,7 @@ export const desktopBoardElements = {
     "strong recall",
     "board-item--site-filter-tick",
     {
-      desktop: { x: 84, y: 502, maxWidth: 146, zIndex: 8 },
+      desktop: { x: 26, y: 514, maxWidth: 116, zIndex: 8 },
       color: "#261d15",
       parallaxDepth: 0.28,
     },

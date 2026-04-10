@@ -1945,25 +1945,13 @@
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--site-filter-card {
-  border-color: transparent;
+  border: 0;
   background: transparent;
-  box-shadow: 0 20px 36px rgba(0, 0, 0, 0.22);
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.18);
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--site-filter-card::before {
-  content: "";
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  width: 22px;
-  height: 22px;
-  clip-path: polygon(0 0, 100% 0, 100% 100%);
-  background:
-    linear-gradient(135deg, rgba(112, 88, 64, 0.06), rgba(255, 249, 241, 0.54)),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0));
-  opacity: 0.46;
-  z-index: 1;
-  pointer-events: none;
+  display: none;
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--site-filter-card::after {
@@ -1972,7 +1960,8 @@
 
 .board-composition[data-board-layout="desktop"] .board-item--site-filter-card .board-file-card-copy {
   z-index: 2;
-  padding: 24px 24px 18px 26px;
+  gap: 2px;
+  padding: 16px 16px 14px 14px;
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--site-filter-card .board-file-card-copy::before {
@@ -1980,9 +1969,9 @@
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--site-filter-card .board-file-card-copy::after {
-  left: 24px;
-  right: 24px;
-  top: 62px;
+  left: 14px;
+  right: 14px;
+  top: 44px;
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--annotation {
@@ -2268,8 +2257,10 @@
 }
 
 .board-composition[data-board-layout="desktop"] .board-file-card-copy--filter .board-file-card-copy__kicker {
-  font-size: 1.26rem;
-  letter-spacing: -0.016em;
+  font-size: 0.88rem;
+  letter-spacing: 0.006em;
+  line-height: 0.88;
+  white-space: nowrap;
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--site-filter-tick::before {
@@ -2281,8 +2272,10 @@
 
 .board-composition[data-board-layout="desktop"] .board-item--site-filter-tick .board-text__content {
   color: rgba(26, 20, 15, 0.96);
-  font-size: 1.06rem;
-  line-height: 1;
+  font-size: 0.8rem;
+  line-height: 0.9;
+  letter-spacing: 0;
+  text-wrap: pretty;
 }
 
 .board-composition[data-board-layout="desktop"] .board-item--annotation-note {
