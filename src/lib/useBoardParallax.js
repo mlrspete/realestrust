@@ -5,18 +5,18 @@ import { boardMediaQuery } from "./heroManifest.js";
 function createMotionConfig(isCompactViewport) {
   return {
     shellAmplitude: {
-      x: isCompactViewport ? 0.28 : 1.32,
-      y: isCompactViewport ? 0.2 : 0.96,
-      rotateX: isCompactViewport ? -0.08 : -0.26,
-      rotateY: isCompactViewport ? 0.12 : 0.36,
+      x: isCompactViewport ? 0.28 : 0.82,
+      y: isCompactViewport ? 0.2 : 0.58,
+      rotateX: isCompactViewport ? -0.08 : -0.16,
+      rotateY: isCompactViewport ? 0.12 : 0.22,
     },
     itemAmplitude: {
-      x: isCompactViewport ? 0.55 : 3.5,
-      y: isCompactViewport ? 0.42 : 2.75,
+      x: isCompactViewport ? 0.55 : 2.2,
+      y: isCompactViewport ? 0.42 : 1.72,
     },
     ambientAmplitude: {
-      x: isCompactViewport ? 0.2 : 2.4,
-      y: isCompactViewport ? 0.16 : 1.7,
+      x: isCompactViewport ? 0.2 : 1.2,
+      y: isCompactViewport ? 0.16 : 0.84,
     },
     smoothing: isCompactViewport ? 0.04 : 0.046,
     idle: isCompactViewport
@@ -26,9 +26,9 @@ function createMotionConfig(isCompactViewport) {
           duration: 0,
         }
       : {
-          x: 0.32,
-          y: -0.78,
-          duration: 10.4,
+          x: 0.16,
+          y: -0.42,
+          duration: 14.8,
         },
     ambientIdle: isCompactViewport
       ? {
@@ -37,9 +37,9 @@ function createMotionConfig(isCompactViewport) {
           duration: 0,
         }
       : {
-          x: -0.85,
-          y: 0.55,
-          duration: 16.5,
+          x: -0.42,
+          y: 0.28,
+          duration: 22,
         },
     scaffoldIdle: isCompactViewport
       ? {
@@ -48,9 +48,9 @@ function createMotionConfig(isCompactViewport) {
           duration: 0,
         }
       : {
-          x: 0.22,
-          y: -0.42,
-          duration: 18.5,
+          x: 0.12,
+          y: -0.2,
+          duration: 24,
         },
   };
 }

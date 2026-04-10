@@ -313,6 +313,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
         const copy = q(".hero-copy")[0];
         const kicker = q(".hero-kicker")[0];
         const title = q(".hero-title")[0];
+        const titleLines = q(".hero-title__line");
         const deck = q(".hero-deck")[0];
         const actions = q(".hero-actions")[0];
         const primaryAction = q(".hero-action--primary")[0];
@@ -379,6 +380,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
               copy,
               kicker,
               title,
+              ...titleLines,
               deck,
               actions,
               primaryAction,
@@ -517,7 +519,8 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
 
           setIfPresent(copy, { autoAlpha: 0, y: 14 });
           setIfPresent(kicker, { autoAlpha: 0, y: 8 });
-          setIfPresent(title, { autoAlpha: 0, y: 14 });
+          setIfPresent(title, { autoAlpha: 1 });
+          setIfPresent(titleLines, { autoAlpha: 0, y: 14 });
           setIfPresent(deck, { autoAlpha: 0, y: 12 });
           setIfPresent(actions, { autoAlpha: 0, y: 10 });
           setIfPresent(primaryAction, {
@@ -717,9 +720,19 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
 
           addToIfPresent(timeline, copy, { autoAlpha: 1, y: 0, duration: 0.34 }, 0.06);
           addToIfPresent(timeline, kicker, { autoAlpha: 1, y: 0, duration: 0.24 }, 0.08);
-          addToIfPresent(timeline, title, { autoAlpha: 1, y: 0, duration: 0.34 }, 0.12);
-          addToIfPresent(timeline, deck, { autoAlpha: 1, y: 0, duration: 0.3 }, 0.18);
-          addToIfPresent(timeline, actions, { autoAlpha: 1, y: 0, duration: 0.24 }, 0.26);
+          addToIfPresent(
+            timeline,
+            titleLines,
+            {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.3,
+              stagger: 0.055,
+            },
+            0.12,
+          );
+          addToIfPresent(timeline, deck, { autoAlpha: 1, y: 0, duration: 0.28 }, 0.28);
+          addToIfPresent(timeline, actions, { autoAlpha: 1, y: 0, duration: 0.22 }, 0.4);
           addToIfPresent(
             timeline,
             [primaryAction, secondaryAction].filter(Boolean),
@@ -728,10 +741,10 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
               x: 0,
               y: 0,
               scale: 1,
-              duration: 0.22,
+              duration: 0.2,
               stagger: 0.04,
             },
-            0.28,
+            0.42,
           );
 
           addToIfPresent(
@@ -1343,9 +1356,19 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
 
         addToIfPresent(timeline, copy, { autoAlpha: 1, y: 0, duration: 0.34 }, 0.06);
         addToIfPresent(timeline, kicker, { autoAlpha: 1, y: 0, duration: 0.24 }, 0.08);
-        addToIfPresent(timeline, title, { autoAlpha: 1, y: 0, duration: 0.34 }, 0.12);
-        addToIfPresent(timeline, deck, { autoAlpha: 1, y: 0, duration: 0.3 }, 0.18);
-        addToIfPresent(timeline, actions, { autoAlpha: 1, y: 0, duration: 0.24 }, 0.26);
+        addToIfPresent(
+          timeline,
+          titleLines,
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.3,
+            stagger: 0.055,
+          },
+          0.12,
+        );
+        addToIfPresent(timeline, deck, { autoAlpha: 1, y: 0, duration: 0.28 }, 0.28);
+        addToIfPresent(timeline, actions, { autoAlpha: 1, y: 0, duration: 0.22 }, 0.4);
         addToIfPresent(
           timeline,
           [primaryAction, secondaryAction].filter(Boolean),
@@ -1354,10 +1377,10 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             x: 0,
             y: 0,
             scale: 1,
-            duration: 0.22,
+            duration: 0.2,
             stagger: 0.04,
           },
-          0.28,
+          0.42,
         );
 
         addToIfPresent(

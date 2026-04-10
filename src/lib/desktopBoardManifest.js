@@ -251,6 +251,20 @@ export const desktopBoardAssetSources = {
     source: "new board pack assets/board pack/FINAL-PASS-CONCEPT-BOARD.png",
     note: "Debug-only overlay extracted from the final-pass concept board pink placement marks.",
   },
+  boardNewConceptOverlay: {
+    runtime: assetPath(
+      "/hero-curated/locked/desktop-board/debug/board-new-concept-overlay.png",
+    ),
+    source: "new board pack assets/board pack/NEWCONCEPTBOARD.png",
+    note: "Debug-only overlay updated from NEWCONCEPTBOARD placement guidance for the desktop copy pass.",
+  },
+  boardNewConceptReference: {
+    runtime: assetPath(
+      "/hero-curated/locked/desktop-board/debug/board-new-concept-reference.png",
+    ),
+    source: "new board pack assets/board pack/NEWCONCEPTBOARD.png",
+    note: "Full NEWCONCEPTBOARD reference retained as a dev-only secondary overlay option.",
+  },
   campaignFilePaper: {
     runtime: assetPath("/hero-curated/locked/board/loose-leaf-note-02.png"),
     source: "asset pack for rr/v1/board-elements/loose-leaf-note-02.png",
@@ -276,14 +290,19 @@ export const desktopBoardAssets = {
   boardRoughConcept: desktopBoardAssetSources.boardRoughConcept.runtime,
   boardFinalPassConceptOverlay:
     desktopBoardAssetSources.boardFinalPassConceptOverlay.runtime,
+  boardNewConceptOverlay: desktopBoardAssetSources.boardNewConceptOverlay.runtime,
+  boardNewConceptReference:
+    desktopBoardAssetSources.boardNewConceptReference.runtime,
   campaignFilePaper: desktopBoardAssetSources.campaignFilePaper.runtime,
   campaignFileClip: desktopBoardAssetSources.campaignFileClip.runtime,
 };
 
 export const desktopBoardDebugAssets = {
-  boardOverlay: desktopBoardAssets.boardFinalPassConceptOverlay,
+  boardOverlay: desktopBoardAssets.boardNewConceptOverlay,
   boardRoughConcept: desktopBoardAssets.boardRoughConcept,
   boardFinalPassConceptOverlay: desktopBoardAssets.boardFinalPassConceptOverlay,
+  boardNewConceptOverlay: desktopBoardAssets.boardNewConceptOverlay,
+  boardNewConceptReference: desktopBoardAssets.boardNewConceptReference,
 };
 
 const campaignFileContent = {
@@ -592,14 +611,7 @@ export const desktopBoardElements = {
     "TERRAIN\nSURVEY",
     "board-item--red-display board-item--map-title board-item--survey-title",
     {
-      desktop: { x: 356, y: 64, maxWidth: 104, zIndex: 9 },
-    },
-  ),
-  surveyMapSubline: createTextItem(
-    "MACRO VIEW / TERRAIN SPREAD / MONUMENT RELATION",
-    "board-item--editorial-subline board-item--survey-subline",
-    {
-      desktop: { x: 306, y: 82, maxWidth: 176, zIndex: 9 },
+      desktop: { x: 332, y: 72, maxWidth: 126, zIndex: 9 },
     },
   ),
   routeIndexRef: createTextItem(
@@ -613,14 +625,7 @@ export const desktopBoardElements = {
     "ROUTE\nINDEX",
     "board-item--red-display board-item--map-title board-item--route-index-title",
     {
-      desktop: { x: 292, y: 566, maxWidth: 110, zIndex: 9 },
-    },
-  ),
-  routeIndexSubline: createTextItem(
-    "PATHS / CROSSINGS / LIKELY EXPOSURE FLOW",
-    "board-item--editorial-subline board-item--route-index-subline",
-    {
-      desktop: { x: 256, y: 584, maxWidth: 170, zIndex: 9 },
+      desktop: { x: 304, y: 582, maxWidth: 108, zIndex: 9 },
     },
   ),
   activationMapRef: createTextItem(
@@ -631,10 +636,10 @@ export const desktopBoardElements = {
     },
   ),
   activationMapTitle: createTextItem(
-    "ACTIVATION FIELD",
+    "ACTIVATION\nFIELD",
     "board-item--red-display board-item--map-title board-item--activation-title",
     {
-      desktop: { x: 1378, y: 164, maxWidth: 200, zIndex: 9 },
+      desktop: { x: 1486, y: 158, maxWidth: 122, zIndex: 9 },
     },
   ),
   activationMapSubline: createTextItem(
@@ -670,34 +675,6 @@ export const desktopBoardElements = {
     "board-item--red-display board-item--zone-ref board-item--zone-support-ref",
     {
       desktop: { x: 1458, y: 462, maxWidth: 76, zIndex: 11 },
-    },
-  ),
-  zone01Headline: createTextItem(
-    "HERO\nANCHOR",
-    "board-item--red-display board-item--zone-headline board-item--zone01-headline",
-    {
-      desktop: { x: 486, y: 800, maxWidth: 112, zIndex: 11 },
-    },
-  ),
-  zone02Headline: createTextItem(
-    "REPEAT\nDWELL",
-    "board-item--red-display board-item--zone-headline board-item--zone02-headline",
-    {
-      desktop: { x: 720, y: 300, maxWidth: 118, zIndex: 11 },
-    },
-  ),
-  zone03Headline: createTextItem(
-    "DISCOVERY POINT",
-    "board-item--red-display board-item--zone-headline board-item--zone03-headline",
-    {
-      desktop: { x: 1100, y: 88, maxWidth: 152, zIndex: 11 },
-    },
-  ),
-  zone04Headline: createTextItem(
-    "ROUTE\nPICKUP",
-    "board-item--red-display board-item--zone-headline board-item--zone04-headline",
-    {
-      desktop: { x: 1398, y: 472, maxWidth: 118, zIndex: 11 },
     },
   ),
   routeNetwork: {
@@ -801,41 +778,28 @@ export const desktopBoardElements = {
     "zone01Card",
     {
       anchorSide: "left",
-      color: "rgba(141, 66, 55, 0.92)",
+      color: "rgba(172, 80, 70, 0.98)",
       className:
         "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact",
       desktop: {
-        x: 670,
-        y: 836,
-        rotation: 4,
-        maxWidth: 82,
+        x: 720,
+        y: 824,
+        rotation: -5,
+        maxWidth: 94,
         zIndex: 14,
       },
     },
   ),
-  noteHeldAttention: createAnnotationNote("HELD ATTENTION", "zone02Marker", {
-    anchorSide: "right",
-    color: "rgba(141, 66, 55, 0.92)",
-    className:
-      "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact board-item--held-attention-note",
-    desktop: {
-      x: 540,
-      y: 520,
-      rotation: -20,
-      maxWidth: 92,
-      zIndex: 14,
-    },
-  }),
-  noteAmbientTraffic: createAnnotationNote("AMBIENT TRAFFIC", "zone03Card", {
+  noteAmbientTraffic: createAnnotationNote("DISCOVERY POINT", "zone03Card", {
     anchorSide: "left",
-    color: "rgba(141, 66, 55, 0.92)",
+    color: "rgba(172, 80, 70, 0.98)",
     className:
       "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact",
     desktop: {
-      x: 1246,
-      y: 80,
+      x: 1230,
+      y: 52,
       rotation: -6,
-      maxWidth: 96,
+      maxWidth: 114,
       zIndex: 14,
     },
   }),
@@ -852,15 +816,15 @@ export const desktopBoardElements = {
     },
   }),
   noteExposurePath: createAnnotationNote("EXPOSURE PATH", "zone04Marker", {
-    anchorSide: "right",
-    color: "rgba(141, 66, 55, 0.92)",
+    anchorSide: "top",
+    color: "rgba(172, 80, 70, 0.98)",
     className:
       "board-item--annotation-note board-item--handwritten board-item--handwritten-red board-item--handwritten-compact board-item--exposure-path-note",
     desktop: {
-      x: 1272,
-      y: 640,
-      rotation: -18,
-      maxWidth: 82,
+      x: 1294,
+      y: 600,
+      rotation: -8,
+      maxWidth: 102,
       zIndex: 14,
     },
   }),
@@ -908,10 +872,8 @@ export const desktopBoardAnimationGroups = {
   mapCopy: [
     "surveyMapRef",
     "surveyMapTitle",
-    "surveyMapSubline",
     "routeIndexRef",
     "routeIndexTitle",
-    "routeIndexSubline",
     "activationMapRef",
     "activationMapTitle",
     "activationMapSubline",
@@ -934,10 +896,6 @@ export const desktopBoardAnimationGroups = {
     "zone02Ref",
     "zone03Ref",
     "zone04Ref",
-    "zone01Headline",
-    "zone02Headline",
-    "zone03Headline",
-    "zone04Headline",
   ],
   routeMarkup: [
     "routeNetwork",
@@ -957,7 +915,6 @@ export const desktopBoardAnimationGroups = {
   ],
   notes: [
     "noteStrongHorizonRead",
-    "noteHeldAttention",
     "noteAmbientTraffic",
     "notePrimarySite",
     "noteExposurePath",

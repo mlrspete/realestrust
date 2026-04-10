@@ -23,11 +23,21 @@ function readBoardOverlayState() {
   const queryValue = searchParams.get("boardOverlay");
 
   if (queryValue !== null) {
-    return queryValue === "1" || queryValue === "true";
+    if (queryValue === "1" || queryValue === "true") {
+      return "boardOverlay";
+    }
+
+    return queryValue;
   }
 
   try {
-    return window.localStorage.getItem("rr-board-overlay") === "1";
+    const storedValue = window.localStorage.getItem("rr-board-overlay");
+
+    if (storedValue === "1" || storedValue === "true") {
+      return "boardOverlay";
+    }
+
+    return storedValue || false;
   } catch {
     return false;
   }
@@ -35,7 +45,7 @@ function readBoardOverlayState() {
 
 function BoardComposition({ motionRef, parallaxRef, boardRef }) {
   const [isMobile, setIsMobile] = useState(readMobileState);
-  const [showDebugOverlay] = useState(readBoardOverlayState);
+  const [debugOverlayKey] = useState(readBoardOverlayState);
 
   useEffect(() => {
     if (typeof window.matchMedia !== "function") {
@@ -61,6 +71,10 @@ function BoardComposition({ motionRef, parallaxRef, boardRef }) {
     ? heroManifest.layouts.mobile
     : heroManifest.layouts.desktop;
   const boardSize = isMobile ? boardSizes.mobile : boardSizes.desktop;
+  const debugOverlayAsset =
+    typeof debugOverlayKey === "string"
+      ? heroManifest.debugAssets[debugOverlayKey] || heroManifest.debugAssets.boardOverlay
+      : null;
 
   return (
     <section
@@ -75,7 +89,7 @@ function BoardComposition({ motionRef, parallaxRef, boardRef }) {
             ref={boardRef}
             style={{ "--board-ratio": `${boardSize.width} / ${boardSize.height}` }}
           >
-            <ThreeBoardShell boardSize={boardSize} />
+            {isMobile ? <ThreeBoardShell boardSize={boardSize} /> : null}
             <div className="board-shell__glow" aria-hidden="true" />
             <div
               className="board-composition"
@@ -84,11 +98,15 @@ function BoardComposition({ motionRef, parallaxRef, boardRef }) {
               <div className="board-slab" aria-hidden="true" />
               <BoardLayer band="z1" items={layout.layers.z1} boardSize={boardSize} />
               <BoardLayer band="z2" items={layout.layers.z2} boardSize={boardSize} />
-              {!isMobile && showDebugOverlay ? (
-                <div className="board-debug-overlay" aria-hidden="true">
+              {!isMobile && debugOverlayAsset ? (
+                <div
+                  className="board-debug-overlay"
+                  data-debug-overlay-key={debugOverlayKey}
+                  aria-hidden="true"
+                >
                   <img
                     className="board-debug-overlay__image"
-                    src={heroManifest.debugAssets.boardOverlay}
+                    src={debugOverlayAsset}
                     alt=""
                     draggable="false"
                     decoding="async"

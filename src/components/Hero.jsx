@@ -37,6 +37,21 @@ function Hero() {
   return (
     <main className="hero" ref={heroRef}>
       <div className="hero-atmosphere" aria-hidden="true">
+        <svg
+          className="hero-strategy-route"
+          viewBox="0 0 640 980"
+          preserveAspectRatio="none"
+          data-ambient-depth="0.03"
+        >
+          <path
+            className="hero-strategy-route__glow"
+            d="M188 28C112 146 252 264 180 426C120 568 250 706 202 952"
+          />
+          <path
+            className="hero-strategy-route__path"
+            d="M188 28C112 146 252 264 180 426C120 568 250 706 202 952"
+          />
+        </svg>
         <div
           className="hero-backdrop hero-backdrop--copy-pocket"
           data-ambient-depth="0.04"
