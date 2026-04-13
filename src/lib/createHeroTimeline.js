@@ -311,6 +311,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
         const scaffold = q(".hero-scaffold")[0];
 
         const copy = q(".hero-copy")[0];
+        const footerRail = q(".hero-footer-rail")[0];
         const kicker = q(".hero-kicker")[0];
         const title = q(".hero-title")[0];
         const titleLines = q(".hero-title__line");
@@ -378,6 +379,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
               boardPool,
               scaffold,
               copy,
+              footerRail,
               kicker,
               title,
               ...titleLines,
@@ -518,6 +520,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
           setIfPresent(scaffold, { autoAlpha: 0 });
 
           setIfPresent(copy, { autoAlpha: 0, y: 14 });
+          setIfPresent(footerRail, { autoAlpha: 0, y: 8 });
           setIfPresent(kicker, { autoAlpha: 0, y: 8 });
           setIfPresent(title, { autoAlpha: 1 });
           setIfPresent(titleLines, { autoAlpha: 0, y: 14 });
@@ -719,6 +722,12 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
           addToIfPresent(timeline, scaffold, { autoAlpha: 1, duration: 0.34 }, 0.08);
 
           addToIfPresent(timeline, copy, { autoAlpha: 1, y: 0, duration: 0.34 }, 0.06);
+          addToIfPresent(
+            timeline,
+            footerRail,
+            { autoAlpha: 1, y: 0, duration: 0.24 },
+            0.24,
+          );
           addToIfPresent(timeline, kicker, { autoAlpha: 1, y: 0, duration: 0.24 }, 0.08);
           addToIfPresent(
             timeline,
@@ -1049,6 +1058,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
             boardPool,
             scaffold,
             copy,
+            footerRail,
             kicker,
             title,
             deck,
@@ -1169,6 +1179,7 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
         setIfPresent(scaffold, { autoAlpha: 0 });
 
         setIfPresent(copy, { autoAlpha: 0, y: 14 });
+        setIfPresent(footerRail, { autoAlpha: 0, y: 8 });
         setIfPresent(kicker, { autoAlpha: 0, y: 8 });
         setIfPresent(title, { autoAlpha: 0, y: 14 });
         setIfPresent(deck, { autoAlpha: 0, y: 12 });
@@ -1355,6 +1366,12 @@ export function createHeroTimeline({ root, onSetup, onComplete }) {
         addToIfPresent(timeline, scaffold, { autoAlpha: 1, duration: 0.34 }, 0.08);
 
         addToIfPresent(timeline, copy, { autoAlpha: 1, y: 0, duration: 0.34 }, 0.06);
+        addToIfPresent(
+          timeline,
+          footerRail,
+          { autoAlpha: 1, y: 0, duration: 0.24 },
+          0.24,
+        );
         addToIfPresent(timeline, kicker, { autoAlpha: 1, y: 0, duration: 0.24 }, 0.08);
         addToIfPresent(
           timeline,

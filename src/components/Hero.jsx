@@ -81,6 +81,12 @@ function Hero() {
           boardRef={boardRef}
         />
       </div>
+      <footer className="hero-footer-rail" aria-label="Footer legal notice">
+        <span className="hero-footer-rail__rule" aria-hidden="true" />
+        <span className="hero-footer-rail__text">
+          ALL RIGHTS RESERVED / REAL RUST PTY LTD / 2025
+        </span>
+      </footer>
     </main>
   );
 }
